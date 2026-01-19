@@ -2,8 +2,14 @@
 ├── app
 │   ├── Http
 │   │   └── Controllers
-│   │       └── Controller.php
+│   │       ├── Controller.php
+│   │       ├── HomeHeroController.php
+│   │       ├── ServicesController.php
+│   │       └── TrustedByController.php
 │   ├── Models
+│   │   ├── HomeHero.php
+│   │   ├── Service.php
+│   │   ├── TrustedBy.php
 │   │   └── User.php
 │   └── Providers
 │       └── AppServiceProvider.php
@@ -36,7 +42,10 @@
 │   ├── migrations
 │   │   ├── 0001_01_01_000000_create_users_table.php
 │   │   ├── 0001_01_01_000001_create_cache_table.php
-│   │   └── 0001_01_01_000002_create_jobs_table.php
+│   │   ├── 0001_01_01_000002_create_jobs_table.php
+│   │   ├── 2026_01_16_203724_create_home_heroes_table.php
+│   │   ├── 2026_01_16_205133_create_services_table.php
+│   │   └── 2026_01_16_210647_create_trusted_by_table.php
 │   └── seeders
 │       └── DatabaseSeeder.php
 ├── .editorconfig
@@ -79,4 +88,4 @@
 │       └── ExampleTest.php
 └── vite.config.js
 
-24 directories, 56 files
+24 directories, 65 files
