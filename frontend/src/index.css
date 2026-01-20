@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: arial;
+  font-family: poppins;
 }
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 a:hover {
