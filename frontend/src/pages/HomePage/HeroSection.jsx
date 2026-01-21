@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getHeroSection } from "../api/get-hero-section";
+import { getHeroSection } from "../../api/get-hero-section";
 
 function HeroSection() {
   const [heroSection, setHeroSection] = useState([]);
