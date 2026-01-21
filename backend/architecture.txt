@@ -1,18 +1,37 @@
 .
 ├── app
 │   ├── Http
-│   │   └── Controllers
-│   │       ├── Controller.php
-│   │       ├── HomeHeroController.php
-│   │       ├── ServicesController.php
-│   │       └── TrustedByController.php
+│   │   ├── Controllers
+│   │   │   ├── Auth
+│   │   │   │   ├── AuthenticatedSessionController.php
+│   │   │   │   ├── ConfirmablePasswordController.php
+│   │   │   │   ├── EmailVerificationNotificationController.php
+│   │   │   │   ├── EmailVerificationPromptController.php
+│   │   │   │   ├── NewPasswordController.php
+│   │   │   │   ├── PasswordController.php
+│   │   │   │   ├── PasswordResetLinkController.php
+│   │   │   │   ├── RegisteredUserController.php
+│   │   │   │   └── VerifyEmailController.php
+│   │   │   ├── Controller.php
+│   │   │   ├── HomeHeroController.php
+│   │   │   ├── ProfileController.php
+│   │   │   ├── ServicesController.php
+│   │   │   └── TrustedByController.php
+│   │   └── Requests
+│   │       ├── Auth
+│   │       │   └── LoginRequest.php
+│   │       └── ProfileUpdateRequest.php
 │   ├── Models
 │   │   ├── HomeHero.php
 │   │   ├── Service.php
 │   │   ├── TrustedBy.php
 │   │   └── User.php
-│   └── Providers
-│       └── AppServiceProvider.php
+│   ├── Providers
+│   │   └── AppServiceProvider.php
+│   └── View
+│       └── Components
+│           ├── AppLayout.php
+│           └── GuestLayout.php
 ├── architecture.txt
 ├── artisan
 ├── bootstrap
@@ -45,8 +64,10 @@
 │   │   ├── 0001_01_01_000002_create_jobs_table.php
 │   │   ├── 2026_01_16_203724_create_home_heroes_table.php
 │   │   ├── 2026_01_16_205133_create_services_table.php
-│   │   └── 2026_01_16_210647_create_trusted_by_table.php
+│   │   ├── 2026_01_16_210647_create_trusted_by_table.php
+│   │   └── 2026_01_19_224350_add_role_to_users_table.php
 │   └── seeders
+│       ├── AdminUserSeeder.php
 │       └── DatabaseSeeder.php
 ├── .editorconfig
 ├── .env
@@ -56,11 +77,12 @@
 ├── package.json
 ├── package-lock.json
 ├── phpunit.xml
+├── postcss.config.js
 ├── public
 │   ├── build
 │   │   ├── assets
-│   │   │   ├── app-B-uLOrqM.css
-│   │   │   └── app-CAiCLEjY.js
+│   │   │   ├── app-BXS-Op9n.js
+│   │   │   └── app-CEwZte8_.css
 │   │   └── manifest.json
 │   ├── favicon.ico
 │   ├── .htaccess
@@ -74,18 +96,60 @@
 │   │   ├── app.js
 │   │   └── bootstrap.js
 │   └── views
+│       ├── auth
+│       │   ├── confirm-password.blade.php
+│       │   ├── forgot-password.blade.php
+│       │   ├── login.blade.php
+│       │   ├── register.blade.php
+│       │   ├── reset-password.blade.php
+│       │   └── verify-email.blade.php
+│       ├── components
+│       │   ├── application-logo.blade.php
+│       │   ├── auth-session-status.blade.php
+│       │   ├── danger-button.blade.php
+│       │   ├── dropdown.blade.php
+│       │   ├── dropdown-link.blade.php
+│       │   ├── input-error.blade.php
+│       │   ├── input-label.blade.php
+│       │   ├── modal.blade.php
+│       │   ├── nav-link.blade.php
+│       │   ├── primary-button.blade.php
+│       │   ├── responsive-nav-link.blade.php
+│       │   ├── secondary-button.blade.php
+│       │   └── text-input.blade.php
+│       ├── dashboard.blade.php
+│       ├── layouts
+│       │   ├── app.blade.php
+│       │   ├── guest.blade.php
+│       │   └── navigation.blade.php
+│       ├── profile
+│       │   ├── edit.blade.php
+│       │   └── partials
+│       │       ├── delete-user-form.blade.php
+│       │       ├── update-password-form.blade.php
+│       │       └── update-profile-information-form.blade.php
 │       └── welcome.blade.php
 ├── routes
 │   ├── api.php
+│   ├── auth.php
 │   ├── console.php
 │   └── web.php
+├── tailwind.config.js
 ├── tests
 │   ├── Feature
-│   │   └── ExampleTest.php
+│   │   ├── Auth
+│   │   │   ├── AuthenticationTest.php
+│   │   │   ├── EmailVerificationTest.php
+│   │   │   ├── PasswordConfirmationTest.php
+│   │   │   ├── PasswordResetTest.php
+│   │   │   ├── PasswordUpdateTest.php
+│   │   │   └── RegistrationTest.php
+│   │   ├── ExampleTest.php
+│   │   └── ProfileTest.php
 │   ├── Pest.php
 │   ├── TestCase.php
 │   └── Unit
 │       └── ExampleTest.php
 └── vite.config.js
 
-24 directories, 65 files
+35 directories, 118 files
