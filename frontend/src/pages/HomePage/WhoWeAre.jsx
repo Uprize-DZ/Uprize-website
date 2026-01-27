@@ -21,12 +21,12 @@ function WhoWeAre() {
     <div className="whoWeAre">
       <h1>Who We Are</h1>
       <div className="whoWeAre-Content">
-        {whoWeAre.map((whoWeAreItem, index) => (
+        {/* {whoWeAre.map((whoWeAreItem, index) => (
           <div className={`whoWeAre-Item item-${index}`} key={whoWeAreItem.id}>
             <h2>{whoWeAreItem.title}</h2>
             <p>{whoWeAreItem.description}</p>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

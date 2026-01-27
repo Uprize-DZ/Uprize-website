@@ -2,6 +2,7 @@ import Header from "../../components/Header.jsx";
 import HeroSection from "./HeroSection.jsx";
 import Services from "./Services.jsx";
 import TrustedBy from "./TrustedBy.jsx";
+import WhoWeAre from "./WhoWeAre.jsx";
 
 function HomePage() {
   const containerVariants = {
@@ -52,6 +53,7 @@ function HomePage() {
         />
         <Services />
         <TrustedBy />
+        <WhoWeAre />
       </main>
     </>
   )
