@@ -27,7 +27,7 @@
                         </a>
                         <a href="#demo"
                             class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-gray-900 bg-white hover:bg-gray-50 rounded-xl transition-all border-2 border-gray-200 hover:border-gray-300">
-                            {{ $home->button_text ?? 'Get started free' }}
+                            {{ $home->button_url ?? 'Get started free' }}
                         </a>
                     </div>
 

@@ -13,16 +13,16 @@ use App\Models\Home;
 class Edit extends Component
 {
     use WithFileUploads;
-    #[Validate('required|string|max:255')]
+    #[Validate('nullable|string|max:255')]
     public $title;
 
-    #[Validate('required|string|max:255')]
+    #[Validate('nullable|string|max:255')]
     public $subtitle;
 
-    #[Validate('required|string|max:255')]
+    #[Validate('nullable|string|max:255')]
     public $button_text;
 
-    #[Validate('required|string|max:255')]
+    #[Validate('nullable|string|max:255')]
     public $button_url;
 
     #[Validate('nullable|image|max:5120')]
