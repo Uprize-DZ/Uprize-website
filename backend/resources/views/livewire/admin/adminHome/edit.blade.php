@@ -10,6 +10,9 @@
                         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                         <input type="text" id="title" wire:model="title"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                        @error('title')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Subtitle -->
@@ -17,6 +20,9 @@
                         <label for="subtitle" class="block text-sm font-medium text-gray-700">Subtitle</label>
                         <textarea id="subtitle" wire:model="subtitle" rows="3"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]"></textarea>
+                        @error('subtitle')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Button Text -->
@@ -24,6 +30,9 @@
                         <label for="button_text" class="block text-sm font-medium text-gray-700">Button Text</label>
                         <input type="text" id="button_text" wire:model="button_text"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                        @error('button_text')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Button URL -->
@@ -31,6 +40,9 @@
                         <label for="button_url" class="block text-sm font-medium text-gray-700">Button URL</label>
                         <input type="text" id="button_url" wire:model="button_url"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                        @error('button_url')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Image Upload -->
@@ -38,6 +50,9 @@
                         <label for="image" class="block text-sm font-medium text-gray-700">Hero Image</label>
                         <input type="file" id="image" wire:model="image" accept="image/*"
                             class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                        @error('image')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                         @if($image)
                             <div class="mt-2">
                                 <img src="{{ asset('storage/' . $image) }}" alt="Preview" class="h-32 rounded-lg shadow-md">

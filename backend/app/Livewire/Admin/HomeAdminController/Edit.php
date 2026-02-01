@@ -25,7 +25,7 @@ class Edit extends Component
     #[Validate('required|string|max:255')]
     public $button_url;
 
-    #[Validate('required|image|max:5120')]
+    #[Validate('nullable|image|max:5120')]
     public $image;
 
 
@@ -54,8 +54,10 @@ class Edit extends Component
         $home->button_url = $this->button_url;
 
         if ($this->image) {
-            Storage::delete($home->image);
-            $home->image = $this->image->store('home');
+            if ($home->image) {
+                Storage::disk('public')->delete($home->image);
+            }
+            $home->image = $this->image->store('home', 'public');
         }
 
         $home->save();
