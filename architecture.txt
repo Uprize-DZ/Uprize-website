@@ -1,0 +1,203 @@
+.
+├── architecture.txt
+├── backend
+│   ├── app
+│   │   ├── Http
+│   │   │   ├── Controllers
+│   │   │   │   ├── Admin
+│   │   │   │   │   ├── AdminHomeHeroController.php
+│   │   │   │   │   └── AdminServiceController.php
+│   │   │   │   ├── Auth
+│   │   │   │   │   ├── AuthenticatedSessionController.php
+│   │   │   │   │   ├── ConfirmablePasswordController.php
+│   │   │   │   │   ├── EmailVerificationNotificationController.php
+│   │   │   │   │   ├── EmailVerificationPromptController.php
+│   │   │   │   │   ├── NewPasswordController.php
+│   │   │   │   │   ├── PasswordController.php
+│   │   │   │   │   ├── PasswordResetLinkController.php
+│   │   │   │   │   ├── RegisteredUserController.php
+│   │   │   │   │   └── VerifyEmailController.php
+│   │   │   │   ├── Controller.php
+│   │   │   │   ├── HomeHeroController.php
+│   │   │   │   ├── ProfileController.php
+│   │   │   │   ├── ServicesController.php
+│   │   │   │   ├── TrustedByController.php
+│   │   │   │   └── WhoWeAreController.php
+│   │   │   ├── Middleware
+│   │   │   │   └── AdminMiddleware.php
+│   │   │   └── Requests
+│   │   │       ├── Auth
+│   │   │       │   └── LoginRequest.php
+│   │   │       └── ProfileUpdateRequest.php
+│   │   ├── Models
+│   │   │   ├── HomeHero.php
+│   │   │   ├── Service.php
+│   │   │   ├── TrustedBy.php
+│   │   │   ├── User.php
+│   │   │   └── WhoWeAre.php
+│   │   ├── Providers
+│   │   │   └── AppServiceProvider.php
+│   │   └── View
+│   │       └── Components
+│   │           ├── AppLayout.php
+│   │           └── GuestLayout.php
+│   ├── architecture.txt
+│   ├── artisan
+│   ├── bootstrap
+│   │   ├── app.php
+│   │   ├── cache
+│   │   │   ├── .gitignore
+│   │   │   ├── packages.php
+│   │   │   └── services.php
+│   │   └── providers.php
+│   ├── composer.json
+│   ├── composer.lock
+│   ├── config
+│   │   ├── app.php
+│   │   ├── auth.php
+│   │   ├── cache.php
+│   │   ├── database.php
+│   │   ├── filesystems.php
+│   │   ├── logging.php
+│   │   ├── mail.php
+│   │   ├── queue.php
+│   │   ├── services.php
+│   │   └── session.php
+│   ├── database
+│   │   ├── factories
+│   │   │   └── UserFactory.php
+│   │   ├── .gitignore
+│   │   ├── migrations
+│   │   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   │   ├── 0001_01_01_000001_create_cache_table.php
+│   │   │   ├── 0001_01_01_000002_create_jobs_table.php
+│   │   │   ├── 2026_01_16_203724_create_home_heroes_table.php
+│   │   │   ├── 2026_01_16_205133_create_services_table.php
+│   │   │   ├── 2026_01_16_210647_create_trusted_by_table.php
+│   │   │   ├── 2026_01_19_224350_add_role_to_users_table.php
+│   │   │   └── 2026_01_26_211031_create__who-we-are-table.php
+│   │   └── seeders
+│   │       ├── AdminUserSeeder.php
+│   │       └── DatabaseSeeder.php
+│   ├── .editorconfig
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitattributes
+│   ├── .gitignore
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── phpunit.xml
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── .htaccess
+│   │   ├── index.php
+│   │   └── robots.txt
+│   ├── README.md
+│   ├── resources
+│   │   ├── css
+│   │   │   └── app.css
+│   │   ├── js
+│   │   │   ├── app.js
+│   │   │   └── bootstrap.js
+│   │   └── views
+│   │       ├── auth
+│   │       │   ├── confirm-password.blade.php
+│   │       │   ├── forgot-password.blade.php
+│   │       │   ├── login.blade.php
+│   │       │   ├── register.blade.php
+│   │       │   ├── reset-password.blade.php
+│   │       │   └── verify-email.blade.php
+│   │       ├── components
+│   │       │   ├── application-logo.blade.php
+│   │       │   ├── auth-session-status.blade.php
+│   │       │   ├── danger-button.blade.php
+│   │       │   ├── dropdown.blade.php
+│   │       │   ├── dropdown-link.blade.php
+│   │       │   ├── input-error.blade.php
+│   │       │   ├── input-label.blade.php
+│   │       │   ├── modal.blade.php
+│   │       │   ├── nav-link.blade.php
+│   │       │   ├── primary-button.blade.php
+│   │       │   ├── responsive-nav-link.blade.php
+│   │       │   ├── secondary-button.blade.php
+│   │       │   └── text-input.blade.php
+│   │       ├── dashboard.blade.php
+│   │       ├── layouts
+│   │       │   ├── app.blade.php
+│   │       │   ├── guest.blade.php
+│   │       │   └── navigation.blade.php
+│   │       ├── profile
+│   │       │   ├── edit.blade.php
+│   │       │   └── partials
+│   │       │       ├── delete-user-form.blade.php
+│   │       │       ├── update-password-form.blade.php
+│   │       │       └── update-profile-information-form.blade.php
+│   │       └── welcome.blade.php
+│   ├── routes
+│   │   ├── api.php
+│   │   ├── auth.php
+│   │   ├── console.php
+│   │   └── web.php
+│   ├── tailwind.config.js
+│   ├── tests
+│   │   ├── Feature
+│   │   │   ├── Auth
+│   │   │   │   ├── AuthenticationTest.php
+│   │   │   │   ├── EmailVerificationTest.php
+│   │   │   │   ├── PasswordConfirmationTest.php
+│   │   │   │   ├── PasswordResetTest.php
+│   │   │   │   ├── PasswordUpdateTest.php
+│   │   │   │   └── RegistrationTest.php
+│   │   │   ├── ExampleTest.php
+│   │   │   └── ProfileTest.php
+│   │   ├── Pest.php
+│   │   ├── TestCase.php
+│   │   └── Unit
+│   │       └── ExampleTest.php
+│   └── vite.config.js
+└── frontend
+    ├── eslint.config.js
+    ├── .gitignore
+    ├── index.html
+    ├── package.json
+    ├── package-lock.json
+    ├── README.md
+    ├── src
+    │   ├── api
+    │   │   ├── get-hero-section.jsx
+    │   │   ├── get-services.jsx
+    │   │   ├── get-trusted-by.jsx
+    │   │   └── get-who-we-are.jsx
+    │   ├── App.jsx
+    │   ├── assets
+    │   │   ├── amazon.png
+    │   │   ├── facebook.png
+    │   │   ├── Frame 1.svg
+    │   │   ├── google.png
+    │   │   ├── instagram.png
+    │   │   ├── printable-dot-grid-paper-for-bullet-journaln_7956.jpg
+    │   │   └── twitter.png
+    │   ├── components
+    │   │   ├── Footer.css
+    │   │   ├── Footer.jsx
+    │   │   ├── header.css
+    │   │   ├── Header.jsx
+    │   │   ├── navbar.css
+    │   │   └── Navbar.jsx
+    │   ├── index.css
+    │   ├── main.jsx
+    │   └── pages
+    │       └── HomePage
+    │           ├── HeroSection.css
+    │           ├── HeroSection.jsx
+    │           ├── HomePage.jsx
+    │           ├── Services.css
+    │           ├── Services.jsx
+    │           ├── TrustedBy.css
+    │           ├── TrustedBy.jsx
+    │           ├── WhoWeAre.css
+    │           └── WhoWeAre.jsx
+    └── vite.config.js
+
+43 directories, 158 files

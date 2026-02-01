@@ -1,41 +1,20 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\AdminHomeHeroController;
-use App\Http\Controllers\Admin\AdminServiceController;
-use App\Http\Controllers\Admin\AdminTrustedByController;
+use App\Livewire\Forms\HomeForm;
+use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\HomeAdminController\Edit as HomeEdit;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Public routes
+Route::get('/', HomeForm::class)->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Admin routes (protected by auth middleware)
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/', Dashboard::class)->name('admin.dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// Admin Routes - Protected by auth and admin middleware
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-
-    // Admin Dashboard
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
-    // Home Heroes Management
-    Route::resource('home-heroes', AdminHomeHeroController::class);
-
-    // Services Management
-    Route::resource('services', AdminServiceController::class);
-
-    // Trusted By Management
-    Route::resource('trusted-by', AdminTrustedByController::class);
+    Route::get('/home/edit', HomeEdit::class)->name('admin.home.edit');
+    //logout
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });
 
 require __DIR__ . '/auth.php';

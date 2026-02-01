@@ -2,32 +2,28 @@
 ├── app
 │   ├── Http
 │   │   ├── Controllers
+│   │   │   ├── Api
+│   │   │   │   └── HomeController.php
 │   │   │   ├── Auth
-│   │   │   │   ├── AuthenticatedSessionController.php
-│   │   │   │   ├── ConfirmablePasswordController.php
-│   │   │   │   ├── EmailVerificationNotificationController.php
-│   │   │   │   ├── EmailVerificationPromptController.php
-│   │   │   │   ├── NewPasswordController.php
-│   │   │   │   ├── PasswordController.php
-│   │   │   │   ├── PasswordResetLinkController.php
-│   │   │   │   ├── RegisteredUserController.php
 │   │   │   │   └── VerifyEmailController.php
-│   │   │   ├── Controller.php
-│   │   │   ├── HomeHeroController.php
-│   │   │   ├── ProfileController.php
-│   │   │   ├── ServicesController.php
-│   │   │   └── TrustedByController.php
-│   │   └── Requests
-│   │       ├── Auth
-│   │       │   └── LoginRequest.php
-│   │       └── ProfileUpdateRequest.php
+│   │   │   └── Controller.php
+│   │   └── Resources
+│   │       └── HomeResource.php
+│   ├── Livewire
+│   │   ├── Actions
+│   │   │   └── Logout.php
+│   │   ├── Admin
+│   │   │   └── HomeAdminController
+│   │   │       └── Edit.php
+│   │   └── Forms
+│   │       ├── HomeForm.php
+│   │       └── LoginForm.php
 │   ├── Models
-│   │   ├── HomeHero.php
-│   │   ├── Service.php
-│   │   ├── TrustedBy.php
+│   │   ├── Home.php
 │   │   └── User.php
 │   ├── Providers
-│   │   └── AppServiceProvider.php
+│   │   ├── AppServiceProvider.php
+│   │   └── VoltServiceProvider.php
 │   └── View
 │       └── Components
 │           ├── AppLayout.php
@@ -55,6 +51,7 @@
 │   ├── services.php
 │   └── session.php
 ├── database
+│   ├── database.sqlite
 │   ├── factories
 │   │   └── UserFactory.php
 │   ├── .gitignore
@@ -62,12 +59,9 @@
 │   │   ├── 0001_01_01_000000_create_users_table.php
 │   │   ├── 0001_01_01_000001_create_cache_table.php
 │   │   ├── 0001_01_01_000002_create_jobs_table.php
-│   │   ├── 2026_01_16_203724_create_home_heroes_table.php
-│   │   ├── 2026_01_16_205133_create_services_table.php
-│   │   ├── 2026_01_16_210647_create_trusted_by_table.php
-│   │   └── 2026_01_19_224350_add_role_to_users_table.php
+│   │   └── 2026_01_29_000000_create_home_page.php
 │   └── seeders
-│       ├── AdminUserSeeder.php
+│       ├── AdminSeeder.php
 │       └── DatabaseSeeder.php
 ├── .editorconfig
 ├── .env
@@ -81,8 +75,8 @@
 ├── public
 │   ├── build
 │   │   ├── assets
-│   │   │   ├── app-BXS-Op9n.js
-│   │   │   └── app-CEwZte8_.css
+│   │   │   ├── app-DIuewKhF.js
+│   │   │   └── app-DUcQGaCp.css
 │   │   └── manifest.json
 │   ├── favicon.ico
 │   ├── .htaccess
@@ -96,14 +90,8 @@
 │   │   ├── app.js
 │   │   └── bootstrap.js
 │   └── views
-│       ├── auth
-│       │   ├── confirm-password.blade.php
-│       │   ├── forgot-password.blade.php
-│       │   ├── login.blade.php
-│       │   ├── register.blade.php
-│       │   ├── reset-password.blade.php
-│       │   └── verify-email.blade.php
 │       ├── components
+│       │   ├── action-message.blade.php
 │       │   ├── application-logo.blade.php
 │       │   ├── auth-session-status.blade.php
 │       │   ├── danger-button.blade.php
@@ -120,14 +108,27 @@
 │       ├── dashboard.blade.php
 │       ├── layouts
 │       │   ├── app.blade.php
-│       │   ├── guest.blade.php
-│       │   └── navigation.blade.php
-│       ├── profile
-│       │   ├── edit.blade.php
-│       │   └── partials
-│       │       ├── delete-user-form.blade.php
-│       │       ├── update-password-form.blade.php
-│       │       └── update-profile-information-form.blade.php
+│       │   └── guest.blade.php
+│       ├── livewire
+│       │   ├── .gitkeep
+│       │   ├── home.blade.php
+│       │   ├── layout
+│       │   │   └── navigation.blade.php
+│       │   ├── pages
+│       │   │   └── auth
+│       │   │       ├── confirm-password.blade.php
+│       │   │       ├── forgot-password.blade.php
+│       │   │       ├── login.blade.php
+│       │   │       ├── register.blade.php
+│       │   │       ├── reset-password.blade.php
+│       │   │       └── verify-email.blade.php
+│       │   ├── profile
+│       │   │   ├── delete-user-form.blade.php
+│       │   │   ├── update-password-form.blade.php
+│       │   │   └── update-profile-information-form.blade.php
+│       │   └── welcome
+│       │       └── navigation.blade.php
+│       ├── profile.blade.php
 │       └── welcome.blade.php
 ├── routes
 │   ├── api.php
@@ -146,10 +147,9 @@
 │   │   │   └── RegistrationTest.php
 │   │   ├── ExampleTest.php
 │   │   └── ProfileTest.php
-│   ├── Pest.php
 │   ├── TestCase.php
 │   └── Unit
 │       └── ExampleTest.php
 └── vite.config.js
 
-35 directories, 118 files
+43 directories, 110 files
