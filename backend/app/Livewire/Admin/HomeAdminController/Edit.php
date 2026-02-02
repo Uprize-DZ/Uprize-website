@@ -13,21 +13,22 @@ use App\Models\Home;
 class Edit extends Component
 {
     use WithFileUploads;
-    #[Validate('nullable|string|max:255')]
+    #[Validate('required|string|max:255')]
     public $title;
 
-    #[Validate('nullable|string|max:255')]
+    #[Validate('required|string|max:255')]
     public $subtitle;
 
-    #[Validate('nullable|string|max:255')]
+    #[Validate('required|string|max:255')]
     public $button_text;
 
     #[Validate('nullable|string|max:255')]
     public $button_url;
 
     #[Validate('nullable|image|max:5120')]
-    public $image;
+    public $newImage;
 
+    public $existingImage;
 
 
     public function mount()
@@ -37,7 +38,7 @@ class Edit extends Component
         $this->subtitle = $home->subtitle;
         $this->button_text = $home->button_text;
         $this->button_url = $home->button_url;
-        $this->image = $home->image;
+        $this->existingImage = $home->image;
     }
 
     public function update()
@@ -53,11 +54,12 @@ class Edit extends Component
         $home->button_text = $this->button_text;
         $home->button_url = $this->button_url;
 
-        if ($this->image) {
+        if ($this->newImage) {
             if ($home->image) {
                 Storage::disk('public')->delete($home->image);
             }
-            $home->image = $this->image->store('home', 'public');
+            $home->image = $this->newImage->store('home', 'public');
+
         }
 
         $home->save();

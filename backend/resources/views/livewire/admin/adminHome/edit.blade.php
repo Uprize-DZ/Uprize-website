@@ -47,19 +47,24 @@
 
                     <!-- Image Upload -->
                     <div>
-                        <label for="image" class="block text-sm font-medium text-gray-700">Hero Image</label>
-                        <input type="file" id="image" wire:model="image" accept="image/*"
+                        <label for="newImage" class="block text-sm font-medium text-gray-700">Hero Image</label>
+                        <input type="file" id="newImage" wire:model="newImage" accept="image/*"
                             class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
-                        @error('image')
+                        @error('newImage')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        @if($image)
+                        
+                        {{-- Show preview of newly uploaded image --}}
+                        @if($newImage)
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $image) }}" alt="Preview" class="h-32 rounded-lg shadow-md">
+                                <p class="text-sm text-gray-600 mb-1">New Image Preview:</p>
+                                <img src="{{ $newImage->temporaryUrl() }}" alt="Preview" class="h-32 rounded-lg shadow-md">
                             </div>
-                        @elseif($image)
+                        @elseif($existingImage)
+                            {{-- Show current saved image --}}
                             <div class="mt-2">
-                                <img src="{{ asset('storage/' . $image) }}" alt="Current" class="h-32 rounded-lg shadow-md">
+                                <p class="text-sm text-gray-600 mb-1">Current Image:</p>
+                                <img src="{{ asset('storage/' . $existingImage) }}" alt="Current" class="h-32 rounded-lg shadow-md">
                             </div>
                         @endif
                     </div>
