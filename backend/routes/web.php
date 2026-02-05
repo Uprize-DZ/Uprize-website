@@ -4,6 +4,7 @@ use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\HomeAdminController\Edit as HomeEdit;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Livewire\Admin\TrustedByAdminController\Edit as TrustedByEdit;
 
 // Public routes
 Route::get('/', HomeForm::class)->name('home');
@@ -13,6 +14,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', Dashboard::class)->name('admin.dashboard');
 
     Route::get('/home/edit', HomeEdit::class)->name('admin.home.edit');
+    Route::get('/trustedby/edit', TrustedByEdit::class)->name('admin.trustedby.edit');
     //logout
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });
