@@ -95,18 +95,14 @@
             @media (max-width: 768px) {
                 @keyframes infinite-scroll {
                     0% {
-                        transform: translateX(100%);
-                        animation-timing-function: ease-in;
+                        transform: translateX(0%);
+                        animation-timing-function: ease-in-out;
                     }
+
 
                     50% {
-                        transform: translateX(-50%);
-                        animation-timing-function: ease-in;
-                    }
-
-                    100% {
-                        transform: translateX(100%);
-                        animation-timing-function: ease-out;
+                        transform: translateX(-100%);
+                        animation-timing-function: ease-in-out;
                     }
                 }
 

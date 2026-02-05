@@ -64,7 +64,7 @@ class Edit extends Component
 
         $home->save();
 
-        $this->dispatch('alert', type: 'success', message: 'Home updated successfully');
+        $this->dispatch('alert', type: 'success', message: 'Home page updated successfully');
     }
 
 

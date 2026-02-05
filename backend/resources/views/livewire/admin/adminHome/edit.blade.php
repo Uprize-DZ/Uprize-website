@@ -5,6 +5,7 @@
                 <h2 class="text-2xl font-bold mb-6">Edit Home Page</h2>
 
                 <form wire:submit.prevent="update" class="space-y-6">
+
                     <!-- Title -->
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
@@ -53,7 +54,7 @@
                         @error('newImage')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        
+
                         {{-- Show preview of newly uploaded image --}}
                         @if($newImage)
                             <div class="mt-2">
@@ -64,10 +65,12 @@
                             {{-- Show current saved image --}}
                             <div class="mt-2">
                                 <p class="text-sm text-gray-600 mb-1">Current Image:</p>
-                                <img src="{{ asset('storage/' . $existingImage) }}" alt="Current" class="h-32 rounded-lg shadow-md">
+                                <img src="{{ asset('storage/' . $existingImage) }}" alt="Current"
+                                    class="h-32 rounded-lg shadow-md">
                             </div>
                         @endif
                     </div>
+
 
                     <div class="flex justify-end">
                         <button type="submit"
@@ -85,3 +88,8 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('alert', event => {
+        alert(event.detail.message);
+    });
+</script>
