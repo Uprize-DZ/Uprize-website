@@ -122,36 +122,8 @@
     <livewire:layout.trustedby />
 
 
-    <!-- CTA Section -->
-    <section class="py-24 bg-gradient-to-br from-[#6b66ff] to-[#4a46cc] relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
-            <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-                Ready to get started?
-            </h2>
-            <p class="text-xl text-[#e8e7ff] mb-10 max-w-2xl mx-auto">
-                Join thousands of businesses already using our platform to deliver exceptional customer experiences.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('register') }}"
-                    class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[#6b66ff] bg-white hover:bg-gray-50 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
-                    Start free trial
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                </a>
-                <a href="#contact"
-                    class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#5a56e6] hover:bg-[#4a46cc] rounded-xl transition-all border-2 border-[#7b76ff]">
-                    Contact sales
-                </a>
-            </div>
-        </div>
-    </section>
+    <!-- representing services -->
+    <livewire:layout.services />
 
     @push('styles')
         <style>
