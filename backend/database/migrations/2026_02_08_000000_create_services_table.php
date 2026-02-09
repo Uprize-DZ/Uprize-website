@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-
+            $table->string('video_url')->nullable();
             $table->string('button_text')->nullable();
             $table->string('button_url')->nullable();
             $table->boolean('is_active')->default(true);

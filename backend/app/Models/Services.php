@@ -10,6 +10,7 @@ class Services extends Model
         'title',
         'description',
         'image',
+        'video_url',
         'button_text',
         'button_url',
         'is_active',
