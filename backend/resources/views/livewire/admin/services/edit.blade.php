@@ -56,7 +56,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">Button URL (Optional)</label>
                             <input type="text" wire:model="{{ $editingId ? 'editButtonUrl' : 'button_url' }}"
                                 class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
-                                placeholder="https://...">
+                                placeholder="/more">
                             @error($editingId ? 'editButtonUrl' : 'button_url') <span
                             class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -186,7 +186,8 @@
                                     <td class="px-6 py-4">
                                         <div class="text-sm font-medium text-gray-900">{{ $service->title }}</div>
                                         <div class="text-xs text-gray-500 h-10 overflow-hidden">
-                                            {{ Str::limit($service->description, 60) }}</div>
+                                            {{ Str::limit($service->description, 60) }}
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="h-12 w-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">

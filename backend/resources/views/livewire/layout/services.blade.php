@@ -10,93 +10,31 @@
         <div class="services-carousel" id="servicesCarousel">
 
             <!-- Service 1: Web Development -->
-            <div class="service-card" data-index="0">
-                <div class="service-content">
+            @foreach ($services as $service)
+                <div class="service-card" data-index="0">
+
                     <!-- Service Icon -->
+
                     <div class="service-icon">
-                        <img src="{{ asset('storage/webdev.png') }}" class="w-full h-full object-contain">
+                        <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain">
                     </div>
 
-                    <h3 class="service-title">Web Development</h3>
+                    <h3 class="service-title">{{$service->title}}</h3>
                     <p class="service-description">
-                        Crafting responsive, lightning-fast websites with modern frameworks and clean code architecture.
+                        {{$service->description}}
                     </p>
-                    <button class="service-button">
-                        Explore More
-                        <svg class="ml-2 w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ $service->button_url ?? route('register') }}"
+                        class="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
+                        {{ $service->button_text ?? 'Get started free' }}
+                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
-                    </button>
+                    </a>
+
                 </div>
-            </div>
-
-            <!-- Service 2: Video Editing -->
-            <div class="service-card" data-index="1">
-                <div class="service-content">
-                    <!-- Service Icon -->
-                    <div class="service-icon">
-                        <img src="{{ asset('storage/editing.png') }}" class="w-full h-full object-contain">
-                    </div>
-
-                    <h3 class="service-title">Video Editing</h3>
-                    <p class="service-description">
-                        Transforming raw footage into compelling stories with professional editing and motion graphics.
-                    </p>
-                    <button class="service-button">
-                        Explore More
-                        <svg class="ml-2 w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Service 3: Voice Over -->
-            <div class="service-card active" data-index="2">
-                <div class="service-content">
-                    <!-- Service Icon -->
-                    <div class="service-icon">
-                        <img src="{{ asset('storage/voiceover.png') }}" class="w-full h-full object-contain">
-                    </div>
-
-                    <h3 class="service-title">Voice Over</h3>
-                    <p class="service-description">
-                        Professional voice recordings with crystal-clear audio quality and expressive delivery for any
-                        project.
-                    </p>
-                    <button class="service-button">
-                        Explore More
-                        <svg class="ml-2 w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Service 4: Graffiti Art -->
-            <div class="service-card" data-index="3">
-                <div class="service-content">
-                    <!-- Service Icon -->
-                    <div class="service-icon">
-                        <img src="{{ asset('storage/graphic.png') }}" class="w-full h-full object-contain">
-                    </div>
-
-                    <h3 class="service-title">graphics design</h3>
-                    <p class="service-description">
-                        Bold, vibrant street art and custom murals that bring energy and personality to any space.
-                    </p>
-                    <button class="service-button">
-                        Explore More
-                        <svg class="ml-2 w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
@@ -119,6 +57,7 @@
             .services-carousel {
                 position: relative;
                 width: 100%;
+                left: 7%;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -135,34 +74,34 @@
                 transform-style: preserve-3d;
             }
 
-            .service-content {
-                width: 100%;
-                height: 100%;
-                background: white;
-                border-radius: 24px;
-                padding: 48px 40px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(107, 102, 255, 0.1);
-                transition: all 0.6s ease;
-                position: relative;
-                overflow: hidden;
-            }
+            /*.service-content {
+                                                                                                                                                        width: 100%;
+                                                                                                                                                        height: 100%;
+                                                                                                                                                        background: white;
+                                                                                                                                                        border-radius: 24px;
+                                                                                                                                                        padding: 48px 40px;
+                                                                                                                                                        display: flex;
+                                                                                                                                                        flex-direction: column;
+                                                                                                                                                        align-items: center;
+                                                                                                                                                        text-align: center;
+                                                                                                                                                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                                                                                                                                                        border: 1px solid rgba(107, 102, 255, 0.1);
+                                                                                                                                                        transition: all 0.6s ease;
+                                                                                                                                                        position: relative;
+                                                                                                                                                        overflow: hidden;
+                                                                                                                                                    }*/
 
-            .service-content::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, transparent, #6b66ff, transparent);
-                opacity: 0;
-                transition: opacity 0.6s ease;
-            }
+            /*.service-content::before {
+                                                                                                                                                        content: '';
+                                                                                                                                                        position: absolute;
+                                                                                                                                                        top: 0;
+                                                                                                                                                        left: 0;
+                                                                                                                                                        right: 0;
+                                                                                                                                                        height: 4px;
+                                                                                                                                                        background: linear-gradient(90deg, transparent, #6b66ff, transparent);
+                                                                                                                                                        opacity: 0;
+                                                                                                                                                        transition: opacity 0.6s ease;
+                                                                                                                                                    }*/
 
             .service-card.active .service-content::before {
                 opacity: 1;
@@ -176,7 +115,8 @@
             }
 
             .service-card.active .service-icon {
-                transform: translateY(-8px);
+                transform: translateY(-50px);
+
             }
 
             .service-title {
@@ -229,9 +169,9 @@
 
             /* Positioning for 3D carousel effect */
             .service-card[data-index="0"] {
-                transform: translateX(-600px) translateZ(-400px) scale(0.75);
+                transform: translateX(-600px) translateZ(-400px) scale(0.1);
                 opacity: 0.4;
-                filter: blur(3px);
+                filter: blur(8px);
             }
 
             .service-card[data-index="1"] {
