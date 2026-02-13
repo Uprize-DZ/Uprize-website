@@ -1,3 +1,182 @@
-[B  [error opening dir]
+.
+├── app
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   ├── Api
+│   │   │   │   ├── admin
+│   │   │   │   └── HomeController.php
+│   │   │   ├── Auth
+│   │   │   │   └── VerifyEmailController.php
+│   │   │   └── Controller.php
+│   │   └── Resources
+│   │       └── HomeResource.php
+│   ├── Livewire
+│   │   ├── Actions
+│   │   │   └── Logout.php
+│   │   ├── Admin
+│   │   │   ├── Dashboard.php
+│   │   │   ├── HomeAdminController
+│   │   │   │   └── Edit.php
+│   │   │   ├── ServicesAdminController
+│   │   │   │   └── Edit.php
+│   │   │   └── TrustedByAdminController
+│   │   │       └── Edit.php
+│   │   ├── Forms
+│   │   │   ├── HomeForm.php
+│   │   │   └── LoginForm.php
+│   │   └── Layout
+│   │       ├── Services.php
+│   │       └── Trustedby.php
+│   ├── Models
+│   │   ├── Home.php
+│   │   ├── Services.php
+│   │   ├── TrustedBy.php
+│   │   └── User.php
+│   ├── Providers
+│   │   ├── AppServiceProvider.php
+│   │   └── VoltServiceProvider.php
+│   └── View
+│       └── Components
+│           ├── AppLayout.php
+│           └── GuestLayout.php
+├── architecture.txt
+├── artisan
+├── bootstrap
+│   ├── app.php
+│   ├── cache
+│   │   ├── .gitignore
+│   │   ├── packages.php
+│   │   └── services.php
+│   └── providers.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── filesystems.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── queue.php
+│   ├── services.php
+│   └── session.php
+├── database
+│   ├── database.sqlite
+│   ├── factories
+│   │   └── UserFactory.php
+│   ├── .gitignore
+│   ├── migrations
+│   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   ├── 0001_01_01_000001_create_cache_table.php
+│   │   ├── 0001_01_01_000002_create_jobs_table.php
+│   │   ├── 2026_01_29_000000_create_home_page.php
+│   │   ├── 2026_02_02_000000_create_trustedBy_table.php
+│   │   └── 2026_02_08_000000_create_services_table.php
+│   └── seeders
+│       ├── AdminSeeder.php
+│       └── DatabaseSeeder.php
+├── .editorconfig
+├── .env
+├── .env.example
+├── .gitattributes
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── phpunit.xml
+├── postcss.config.js
+├── public
+│   ├── build
+│   │   ├── assets
+│   │   │   ├── app-DIuewKhF.js
+│   │   │   └── app-DUcQGaCp.css
+│   │   └── manifest.json
+│   ├── favicon.ico
+│   ├── hot
+│   ├── .htaccess
+│   ├── index.php
+│   └── robots.txt
+├── README.md
+├── resources
+│   ├── css
+│   │   └── app.css
+│   ├── js
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   └── views
+│       ├── components
+│       │   ├── action-message.blade.php
+│       │   ├── application-logo.blade.php
+│       │   ├── auth-session-status.blade.php
+│       │   ├── danger-button.blade.php
+│       │   ├── dropdown.blade.php
+│       │   ├── dropdown-link.blade.php
+│       │   ├── input-error.blade.php
+│       │   ├── input-label.blade.php
+│       │   ├── layouts
+│       │   │   ├── admin.blade.php
+│       │   │   └── app.blade.php
+│       │   ├── modal.blade.php
+│       │   ├── nav-link.blade.php
+│       │   ├── primary-button.blade.php
+│       │   ├── responsive-nav-link.blade.php
+│       │   ├── secondary-button.blade.php
+│       │   └── text-input.blade.php
+│       ├── layouts
+│       │   ├── app.blade.php
+│       │   └── guest.blade.php
+│       └── livewire
+│           ├── admin
+│           │   ├── adminHome
+│           │   │   └── edit.blade.php
+│           │   ├── dashboard.blade.php
+│           │   ├── navbar.blade.php
+│           │   ├── services
+│           │   │   └── edit.blade.php
+│           │   └── trustedby
+│           │       └── edit.blade.php
+│           ├── .gitkeep
+│           ├── home.blade.php
+│           ├── layout
+│           │   ├── footer.blade.php
+│           │   ├── navigation.blade.php
+│           │   ├── servicedetails
+│           │   ├── services.blade.php
+│           │   └── trustedby.blade.php
+│           ├── pages
+│           │   └── auth
+│           │       ├── confirm-password.blade.php
+│           │       ├── forgot-password.blade.php
+│           │       ├── login.blade.php
+│           │       ├── register.blade.php
+│           │       ├── reset-password.blade.php
+│           │       └── verify-email.blade.php
+│           ├── profile
+│           │   ├── delete-user-form.blade.php
+│           │   ├── update-password-form.blade.php
+│           │   └── update-profile-information-form.blade.php
+│           └── welcome
+│               └── navigation.blade.php
+├── routes
+│   ├── api.php
+│   ├── auth.php
+│   ├── console.php
+│   └── web.php
+├── tailwind.config.js
+├── tests
+│   ├── Feature
+│   │   ├── Auth
+│   │   │   ├── AuthenticationTest.php
+│   │   │   ├── EmailVerificationTest.php
+│   │   │   ├── PasswordConfirmationTest.php
+│   │   │   ├── PasswordResetTest.php
+│   │   │   ├── PasswordUpdateTest.php
+│   │   │   └── RegistrationTest.php
+│   │   ├── ExampleTest.php
+│   │   └── ProfileTest.php
+│   ├── TestCase.php
+│   └── Unit
+│       └── ExampleTest.php
+└── vite.config.js
 
-0 directories, 0 files
+52 directories, 128 files
