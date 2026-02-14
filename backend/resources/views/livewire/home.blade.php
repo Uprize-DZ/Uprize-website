@@ -3,22 +3,7 @@
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white pt-20 pb-32">
         <!-- Dashed Grid Background -->
-        <div class="absolute inset-0 z-0 pointer-events-none" style="
-                background-image: 
-                    linear-gradient(to right, #e7e5e4 1px, transparent 1px),
-                    linear-gradient(to bottom, #e7e5e4 1px, transparent 1px);
-                background-size: 20px 20px;
-                background-position: 0 0, 0 0;
-                mask-image: 
-                    repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-                    repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px);
-                -webkit-mask-image: 
-                    repeating-linear-gradient(to right, black 0px, black 3px, transparent 3px, transparent 8px),
-                    repeating-linear-gradient(to bottom, black 0px, black 3px, transparent 3px, transparent 8px);
-                mask-composite: intersect;
-                -webkit-mask-composite: source-in;
-            ">
-        </div>
+        <livewire:layout.background></livewire:layout.background>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 items-center">

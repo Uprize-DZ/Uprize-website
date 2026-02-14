@@ -8,6 +8,7 @@ use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Services;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 #[Layout('components.layouts.admin')]
 class Edit extends Component
@@ -58,17 +59,31 @@ class Edit extends Component
         ]);
 
         $imagePath = $this->image->store('services/images', 'public');
-        $videoPath = $this->video ? $this->video->store('services/videos', 'public') : null;
+        $videoUrl = null;
+        $videoPublicId = null;
+
+        if ($this->video) {
+            $uploadedVideo = Cloudinary::uploadedVideo(
+                $this->video->getRealPath(),
+                [
+                    'folder' => 'services/videos'
+                ]
+            );
+            $videoUrl = $uploadedVideo->getSecurePath();
+            $videoPublicId = $uploadedVideo->getPublicId();
+        }
 
         Services::create([
             'title' => $this->title,
             'description' => $this->description,
-            'image' => $imagePath,
-            'video_url' => $videoPath,
+            'image' => $imagePath, // keep local if you want
+            'video_url' => $videoUrl,
+            'video_public_id' => $videoPublicId,
             'button_text' => $this->button_text,
             'button_url' => $this->button_url,
             'is_active' => $this->is_active,
         ]);
+
 
         $this->reset(['title', 'description', 'image', 'video', 'button_text', 'button_url', 'is_active']);
         $this->dispatch('alert', type: 'success', message: 'Service created successfully');
@@ -97,7 +112,7 @@ class Edit extends Component
         ]);
 
         $service = Services::findOrFail($this->editingId);
-        
+
         $data = [
             'title' => $this->editTitle,
             'description' => $this->editDescription,
@@ -114,11 +129,24 @@ class Edit extends Component
         }
 
         if ($this->editVideo) {
-            if ($service->video_url) {
-                Storage::disk('public')->delete($service->video_url);
+
+            // Delete old video from Cloudinary
+            if ($service->video_public_id) {
+                Cloudinary::destroy($service->video_public_id);
             }
-            $data['video_url'] = $this->editVideo->store('services/videos', 'public');
+
+            $uploadedVideo = Cloudinary::uploadVideo(
+                $this->editVideo->getRealPath(),
+                [
+                    'folder' => 'services/videos'
+                ]
+            );
+
+            $data['video_url'] = $uploadedVideo->getSecurePath();
+            $data['video_public_id'] = $uploadedVideo->getPublicId();
         }
+
+
 
         $service->update($data);
 
@@ -143,9 +171,10 @@ class Edit extends Component
         if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }
-        if ($service->video_url) {
-            Storage::disk('public')->delete($service->video_url);
+        if ($service->video_public_id) {
+            Cloudinary::destroy($service->video_public_id);
         }
+
         $service->delete();
         $this->dispatch('alert', type: 'success', message: 'Service deleted successfully');
     }

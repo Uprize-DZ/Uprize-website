@@ -1,4 +1,5 @@
 <div class="relative py-32 overflow-hidden bg-white">
+    <livewire:layout.background></livewire:layout.background>
     <!-- Section Header -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-20 text-center">
         <h2 class="text-5xl font-bold text-gray-900 mb-4">What We Create</h2>
@@ -9,30 +10,27 @@
     <div class="relative h-[600px] perspective-container">
         <div class="services-carousel" id="servicesCarousel">
 
-            <!-- Service 1: Web Development -->
+            <!-- Service Cards -->
             @foreach ($services as $service)
                 <div class="service-card" data-index="0">
-
                     <!-- Service Icon -->
-
                     <div class="service-icon">
-                        <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain">
+                        <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain"
+                            alt="{{$service->title}}">
                     </div>
 
                     <h3 class="service-title">{{$service->title}}</h3>
                     <p class="service-description">
                         {{$service->description}}
                     </p>
-                    <a href="{{ $service->button_url ?? route('register') }}"
-                        class="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
+                    <a href="{{ $service->button_url ?? route('register') }}" class="service-button group">
                         {{ $service->button_text ?? 'Get started free' }}
-                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform inline-block" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
                     </a>
-
                 </div>
             @endforeach
 
@@ -40,10 +38,9 @@
 
         <!-- Navigation Dots -->
         <div class="carousel-dots">
-            <button class="dot" data-slide="0"></button>
-            <button class="dot" data-slide="1"></button>
-            <button class="dot active" data-slide="2"></button>
-            <button class="dot" data-slide="3"></button>
+            @foreach ($services as $index => $service)
+                <button class="dot {{ $index === 2 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+            @endforeach
         </div>
     </div>
 
@@ -57,7 +54,6 @@
             .services-carousel {
                 position: relative;
                 width: 100%;
-                left: 7%;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -72,51 +68,23 @@
                 transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
                 cursor: pointer;
                 transform-style: preserve-3d;
-            }
-
-            /*.service-content {
-                                                                                                                                                        width: 100%;
-                                                                                                                                                        height: 100%;
-                                                                                                                                                        background: white;
-                                                                                                                                                        border-radius: 24px;
-                                                                                                                                                        padding: 48px 40px;
-                                                                                                                                                        display: flex;
-                                                                                                                                                        flex-direction: column;
-                                                                                                                                                        align-items: center;
-                                                                                                                                                        text-align: center;
-                                                                                                                                                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-                                                                                                                                                        border: 1px solid rgba(107, 102, 255, 0.1);
-                                                                                                                                                        transition: all 0.6s ease;
-                                                                                                                                                        position: relative;
-                                                                                                                                                        overflow: hidden;
-                                                                                                                                                    }*/
-
-            /*.service-content::before {
-                                                                                                                                                        content: '';
-                                                                                                                                                        position: absolute;
-                                                                                                                                                        top: 0;
-                                                                                                                                                        left: 0;
-                                                                                                                                                        right: 0;
-                                                                                                                                                        height: 4px;
-                                                                                                                                                        background: linear-gradient(90deg, transparent, #6b66ff, transparent);
-                                                                                                                                                        opacity: 0;
-                                                                                                                                                        transition: opacity 0.6s ease;
-                                                                                                                                                    }*/
-
-            .service-card.active .service-content::before {
-                opacity: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 48px 40px;
             }
 
             .service-icon {
-                width: 200px;
-                height: 200px;
-                margin-bottom: 32px;
+                width: 120px;
+                height: 120px;
+                margin-bottom: 24px;
                 transition: transform 0.6s ease;
+                flex-shrink: 0;
             }
 
             .service-card.active .service-icon {
-                transform: translateY(-50px);
-
+                transform: scale(1.1);
             }
 
             .service-title {
@@ -134,6 +102,7 @@
                 margin-bottom: 32px;
                 flex-grow: 1;
                 transition: all 0.4s ease;
+                max-width: 100%;
             }
 
             .service-button {
@@ -145,8 +114,10 @@
                 font-size: 15px;
                 border-radius: 12px;
                 transition: all 0.3s ease;
+                text-decoration: none;
                 display: inline-flex;
                 align-items: center;
+                justify-content: center;
             }
 
             .service-button:hover {
@@ -169,9 +140,10 @@
 
             /* Positioning for 3D carousel effect */
             .service-card[data-index="0"] {
-                transform: translateX(-600px) translateZ(-400px) scale(0.1);
+                transform: translateX(-600px) translateZ(-400px) scale(0.75);
                 opacity: 0.4;
-                filter: blur(8px);
+                filter: blur(3px);
+                pointer-events: none;
             }
 
             .service-card[data-index="1"] {
@@ -197,11 +169,7 @@
                 transform: translateX(600px) translateZ(-400px) scale(0.75);
                 opacity: 0.4;
                 filter: blur(3px);
-            }
-
-            .service-card.active .service-content {
-                box-shadow: 0 30px 80px rgba(107, 102, 255, 0.2);
-                border-color: rgba(107, 102, 255, 0.2);
+                pointer-events: none;
             }
 
             /* Navigation Dots */
@@ -243,10 +211,27 @@
                 box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
             }
 
+            /* Tablet Responsiveness */
             @media (max-width: 1024px) {
                 .service-card {
                     width: 360px;
                     height: 480px;
+                    padding: 36px 32px;
+                }
+
+                .service-icon {
+                    width: 100px;
+                    height: 100px;
+                    margin-bottom: 20px;
+                }
+
+                .service-title {
+                    font-size: 24px;
+                }
+
+                .service-description {
+                    font-size: 15px;
+                    margin-bottom: 24px;
                 }
 
                 .service-card[data-index="0"] {
@@ -266,33 +251,41 @@
                 }
             }
 
+            /* Mobile Responsiveness */
             @media (max-width: 768px) {
                 .perspective-container {
-                    height: 500px;
+                    height: 520px;
                 }
 
                 .service-card {
-                    width: 300px;
-                    height: 420px;
-                }
-
-                .service-content {
+                    width: 320px;
+                    height: 460px;
                     padding: 32px 24px;
                 }
 
                 .service-icon {
-                    width: 150px;
-                    height: 150px;
+                    width: 90px;
+                    height: 90px;
+                    margin-bottom: 16px;
                 }
 
                 .service-title {
-                    font-size: 24px;
+                    font-size: 22px;
+                    margin-bottom: 12px;
                 }
 
                 .service-description {
                     font-size: 14px;
+                    line-height: 1.6;
+                    margin-bottom: 20px;
                 }
 
+                .service-button {
+                    padding: 12px 24px;
+                    font-size: 14px;
+                }
+
+                /* Hide far cards on mobile */
                 .service-card[data-index="0"],
                 .service-card[data-index="4"] {
                     display: none;
@@ -306,6 +299,42 @@
                     transform: translateX(180px) translateZ(-150px) scale(0.75);
                 }
             }
+
+            /* Small Mobile */
+            @media (max-width: 480px) {
+                .perspective-container {
+                    height: 480px;
+                }
+
+                .service-card {
+                    width: 280px;
+                    height: 420px;
+                    padding: 28px 20px;
+                }
+
+                .service-icon {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                .service-title {
+                    font-size: 20px;
+                }
+
+                .service-description {
+                    font-size: 13px;
+                }
+
+                .service-card[data-index="1"] {
+                    transform: translateX(-160px) translateZ(-120px) scale(0.7);
+                    opacity: 0.5;
+                }
+
+                .service-card[data-index="3"] {
+                    transform: translateX(160px) translateZ(-120px) scale(0.7);
+                    opacity: 0.5;
+                }
+            }
         </style>
     @endpush
 
@@ -315,7 +344,7 @@
                 const carousel = document.getElementById('servicesCarousel');
                 const cards = carousel.querySelectorAll('.service-card');
                 const dots = document.querySelectorAll('.dot');
-                let currentIndex = 2; // Start with middle card (Voice Over)
+                let currentIndex = 2; // Start with middle card
                 const totalCards = cards.length;
 
                 let autoScrollInterval;
@@ -353,7 +382,7 @@
                         if (isAutoScrolling) {
                             updateCarousel((currentIndex + 1) % totalCards);
                         }
-                    }, 3000); // Change slide every 3 seconds
+                    }, 3000);
                 }
 
                 function stopAutoScroll() {
@@ -381,23 +410,15 @@
                 let wheelTimeout;
                 carousel.addEventListener('wheel', (e) => {
                     e.preventDefault();
-
-                    // Pause auto-scroll temporarily
                     pauseAutoScroll();
-
-                    // Clear existing timeout
                     clearTimeout(wheelTimeout);
 
-                    // Determine scroll direction
                     if (e.deltaY > 0) {
-                        // Scroll down - next slide
                         updateCarousel((currentIndex + 1) % totalCards);
                     } else if (e.deltaY < 0) {
-                        // Scroll up - previous slide
                         updateCarousel((currentIndex - 1 + totalCards) % totalCards);
                     }
 
-                    // Resume auto-scroll after 2 seconds of no scrolling
                     wheelTimeout = setTimeout(() => {
                         resumeAutoScroll();
                     }, 2000);
@@ -408,8 +429,6 @@
                     card.addEventListener('click', () => {
                         pauseAutoScroll();
                         updateCarousel(index);
-
-                        // Resume auto-scroll after 3 seconds
                         setTimeout(() => {
                             resumeAutoScroll();
                         }, 3000);
@@ -422,8 +441,6 @@
                         pauseAutoScroll();
                         const slideIndex = parseInt(dot.getAttribute('data-slide'));
                         updateCarousel(slideIndex);
-
-                        // Resume auto-scroll after 3 seconds
                         setTimeout(() => {
                             resumeAutoScroll();
                         }, 3000);
@@ -442,8 +459,6 @@
                 carousel.addEventListener('touchend', (e) => {
                     touchEndX = e.changedTouches[0].screenX;
                     handleSwipe();
-
-                    // Resume auto-scroll after 3 seconds
                     setTimeout(() => {
                         resumeAutoScroll();
                     }, 3000);
@@ -451,11 +466,9 @@
 
                 function handleSwipe() {
                     if (touchEndX < touchStartX - 50) {
-                        // Swipe left
                         updateCarousel((currentIndex + 1) % totalCards);
                     }
                     if (touchEndX > touchStartX + 50) {
-                        // Swipe right
                         updateCarousel((currentIndex - 1 + totalCards) % totalCards);
                     }
                 }
