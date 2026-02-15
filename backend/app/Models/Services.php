@@ -11,6 +11,7 @@ class Services extends Model
         'description',
         'image',
         'video_url',
+        'video_public_id',
         'button_text',
         'button_url',
         'is_active',

@@ -102,6 +102,13 @@
             display: none !important;
         }
     </style>
+
+    <script>
+        window.addEventListener('alert', event => {
+            let data = event.detail;
+            alert(data.message);
+        });
+    </script>
 </body>
 
 </html>

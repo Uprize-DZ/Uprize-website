@@ -15,10 +15,14 @@
                 <div class="service-card" data-index="0">
                     <!-- Service Icon -->
                     <div class="service-icon">
-                        <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain"
-                            alt="{{$service->title}}">
+                        @if($service->video_url)
+                            <video src="{{ $service->video_url }}" class="w-full h-full object-cover rounded-2xl" autoplay muted
+                                loop playsinline></video>
+                        @else
+                            <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain"
+                                alt="{{$service->title}}">
+                        @endif
                     </div>
-
                     <h3 class="service-title">{{$service->title}}</h3>
                     <p class="service-description">
                         {{$service->description}}
@@ -480,4 +484,3 @@
             });
         </script>
     @endpush
-</div>

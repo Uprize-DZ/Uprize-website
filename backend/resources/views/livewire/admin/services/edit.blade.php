@@ -20,7 +20,8 @@
                         {{ $editingId ? 'Edit Service' : 'Add New Service' }}
                     </h2>
 
-                    <form wire:submit.prevent="{{ $editingId ? 'update' : 'store' }}" class="space-y-5">
+                    <form wire:submit.prevent="{{ $editingId ? 'update' : 'store' }}" enctype="multipart/form-data"
+                        class="space-y-5">
                         <!-- Title -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Service Title</label>
@@ -78,32 +79,29 @@
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-[#6b66ff] hover:text-[#5a56e6] focus-within:outline-none">
                                             <span>Upload an image</span>
                                             <input type="file" wire:model="{{ $editingId ? 'editImage' : 'image' }}"
-                                                class="sr-only">
+                                                class="sr-only" accept="image/*">
                                         </label>
                                     </div>
                                     <p class="text-xs text-gray-500">PNG, JPG up to 2MB</p>
+                                    <div wire:loading wire:target="{{ $editingId ? 'editImage' : 'image' }}"
+                                        class="text-xs text-[#6b66ff] mt-2">
+                                        Uploading image...
+                                    </div>
                                 </div>
                             </div>
                             @error($editingId ? 'editImage' : 'image') <span
                             class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
 
                             <!-- Preview New Image -->
-                            @php
-                                $imagePreview = null;
-                                try {
-                                    if ($editingId && $editImage) {
-                                        $imagePreview = $editImage->temporaryUrl();
-                                    } elseif (!$editingId && $image) {
-                                        $imagePreview = $image->temporaryUrl();
-                                    }
-                                } catch (\Exception $e) {
-                                }
-                            @endphp
-
-                            @if ($imagePreview)
+                            @if (($editingId && $editImage) || (!$editingId && $image))
                                 <div class="mt-4">
-                                    <img src="{{ $imagePreview }}"
-                                        class="h-24 object-cover rounded-lg border border-gray-100">
+                                    @if($editingId && $editImage)
+                                        <img src="{{ $editImage->temporaryUrl() }}"
+                                            class="h-24 object-cover rounded-lg border border-gray-100">
+                                    @elseif(!$editingId && $image)
+                                        <img src="{{ $image->temporaryUrl() }}"
+                                            class="h-24 object-cover rounded-lg border border-gray-100">
+                                    @endif
                                 </div>
                             @endif
                         </div>
@@ -124,14 +122,55 @@
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-[#6b66ff] hover:text-[#5a56e6] focus-within:outline-none">
                                             <span>Upload a video</span>
                                             <input type="file" wire:model="{{ $editingId ? 'editVideo' : 'video' }}"
-                                                class="sr-only">
+                                                class="sr-only"
+                                                accept="video/mp4,video/quicktime,video/x-msvideo,video/webm">
                                         </label>
                                     </div>
-                                    <p class="text-xs text-gray-500">MP4, MOV up to 10MB</p>
+                                    <p class="text-xs text-gray-500">MP4, MOV, AVI, WEBM up to 50MB</p>
+                                    <div wire:loading wire:target="{{ $editingId ? 'editVideo' : 'video' }}"
+                                        class="text-xs text-[#6b66ff] mt-2 flex items-center justify-center gap-2">
+                                        <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                        Uploading video...
+                                    </div>
                                 </div>
                             </div>
-                            @error($editingId ? 'editVideo' : 'video') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+
+
+                            <!-- Preview New video -->
+                            @if (($editingId && $editVideo) || (!$editingId && $video))
+                                <div class="mt-4">
+                                    <p class="text-xs text-gray-600 mb-2">New video preview:</p>
+                                    @if($editingId && $editVideo)
+                                        <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                            <source src="{{ $editVideo->temporaryUrl() }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @elseif(!$editingId && $video)
+                                        <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                            <source src="{{ $video->temporaryUrl() }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @endif
+                                </div>
+                            @endif
+
+                            <!-- Show existing video if editing and no new video -->
+                            @if ($editingId && $currentVideoUrl && !$editVideo)
+                                <div class="mt-4">
+                                    <p class="text-xs text-gray-600 mb-2">Current video:</p>
+                                    <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                        <source src="{{ $currentVideoUrl }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Active Toggle -->
@@ -144,10 +183,24 @@
                         <!-- Buttons -->
                         <div class="flex gap-3">
                             <button type="submit"
-                                class="flex-1 bg-[#6b66ff] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#5a56e6] transition-all flex items-center justify-center gap-2">
-                                <span wire:loading.remove>{{ $editingId ? 'Update Service' : 'Add Service' }}</span>
-                                <span wire:loading
-                                    class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
+                                class="flex-1 bg-[#6b66ff] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#5a56e6] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                wire:loading.attr="disabled"
+                                wire:target="{{ $editingId ? 'update' : 'store' }}, {{ $editingId ? 'editImage,editVideo' : 'image,video' }}">
+                                <span wire:loading.remove wire:target="{{ $editingId ? 'update' : 'store' }}">
+                                    {{ $editingId ? 'Update Service' : 'Add Service' }}
+                                </span>
+                                <span wire:loading wire:target="{{ $editingId ? 'update' : 'store' }}"
+                                    class="flex items-center gap-2">
+                                    <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                    Processing...
+                                </span>
                             </button>
                             @if($editingId)
                                 <button type="button" wire:click="cancelEdit"
@@ -171,7 +224,7 @@
                                     Service</th>
                                 <th
                                     class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                    Image</th>
+                                    Media</th>
                                 <th
                                     class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                     Status</th>
@@ -190,9 +243,23 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="h-12 w-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
-                                            <img src="{{ asset('storage/' . $service->image) }}"
-                                                class="h-full w-full object-cover">
+                                        <div class="flex flex-col gap-2">
+                                            <!-- Image thumbnail -->
+                                            <div
+                                                class="h-12 w-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                                                <img src="{{ asset('storage/' . $service->image) }}"
+                                                    class="h-full w-full object-cover" alt="{{ $service->title }}">
+                                            </div>
+                                            <!-- Video indicator -->
+                                            @if($service->video_url)
+                                                <span class="inline-flex items-center text-xs text-green-600">
+                                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
+                                                    </svg>
+                                                    Video
+                                                </span>
+                                            @endif
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
