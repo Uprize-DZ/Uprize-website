@@ -34,6 +34,10 @@
 
                     <!-- You can add more fields from your database here -->
                     <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                        <video controls class="h-120 w-full rounded-lg border border-gray-100">
+                            <source src="{{ $service->video_url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="text-gray-700 leading-relaxed">
                             {{ $service->description }}
                         </p>
