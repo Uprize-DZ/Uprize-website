@@ -25,8 +25,8 @@
                 <p class="service-description">
                     {{$service->description}}
                 </p>
-                <a href="{{ $service->button_url ?? route('register') }}" class="service-button group">
-                    {{ $service->button_text ?? 'Get started free' }}
+                <a href="{{ route('services.show', $service->id) }}" class="service-button group">
+                    Learn More
                     <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform inline-block" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
