@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Livewire\Admin\TrustedByAdminController\Edit as TrustedByEdit;
 use App\Livewire\Admin\ServicesAdminController\Edit as ServicesEdit;
+use App\Livewire\Admin\FooterAdminController\Edit as FooterEdit;
 
 // Public routes
 Route::get('/', HomeForm::class)->name('home');
@@ -18,6 +19,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/home/edit', HomeEdit::class)->name('admin.home.edit');
     Route::get('/trustedby/edit', TrustedByEdit::class)->name('admin.trustedby.edit');
     Route::get('/services/edit', ServicesEdit::class)->name('admin.services.edit');
+    Route::get('/footer/edit', FooterEdit::class)->name('admin.footer.edit');
 
     //logout
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');

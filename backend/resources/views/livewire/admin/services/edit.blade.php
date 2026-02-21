@@ -29,7 +29,7 @@
                                 class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
                                 placeholder="E.g. Web Development">
                             @error($editingId ? 'editTitle' : 'title') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                                class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Description -->
@@ -39,7 +39,7 @@
                                 class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
                                 placeholder="Describe the service..."></textarea>
                             @error($editingId ? 'editDescription' : 'description') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                                class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Button Text -->
@@ -49,7 +49,7 @@
                                 class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
                                 placeholder="Learn More">
                             @error($editingId ? 'editButtonText' : 'button_text') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                                class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Button URL -->
@@ -59,7 +59,7 @@
                                 class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
                                 placeholder="/more">
                             @error($editingId ? 'editButtonUrl' : 'button_url') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                                class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Image Upload -->
@@ -90,19 +90,19 @@
                                 </div>
                             </div>
                             @error($editingId ? 'editImage' : 'image') <span
-                            class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                                class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
 
                             <!-- Preview New Image -->
                             @if (($editingId && $editImage) || (!$editingId && $image))
-                                <div class="mt-4">
-                                    @if($editingId && $editImage)
-                                        <img src="{{ $editImage->temporaryUrl() }}"
-                                            class="h-24 object-cover rounded-lg border border-gray-100">
-                                    @elseif(!$editingId && $image)
-                                        <img src="{{ $image->temporaryUrl() }}"
-                                            class="h-24 object-cover rounded-lg border border-gray-100">
-                                    @endif
-                                </div>
+                            <div class="mt-4">
+                                @if($editingId && $editImage)
+                                <img src="{{ $editImage->temporaryUrl() }}"
+                                    class="h-24 object-cover rounded-lg border border-gray-100">
+                                @elseif(!$editingId && $image)
+                                <img src="{{ $image->temporaryUrl() }}"
+                                    class="h-24 object-cover rounded-lg border border-gray-100">
+                                @endif
+                            </div>
                             @endif
                         </div>
 
@@ -145,31 +145,31 @@
 
                             <!-- Preview New video -->
                             @if (($editingId && $editVideo) || (!$editingId && $video))
-                                <div class="mt-4">
-                                    <p class="text-xs text-gray-600 mb-2">New video preview:</p>
-                                    @if($editingId && $editVideo)
-                                        <video controls class="h-32 w-full rounded-lg border border-gray-100">
-                                            <source src="{{ $editVideo->temporaryUrl() }}" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    @elseif(!$editingId && $video)
-                                        <video controls class="h-32 w-full rounded-lg border border-gray-100">
-                                            <source src="{{ $video->temporaryUrl() }}" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    @endif
-                                </div>
+                            <div class="mt-4">
+                                <p class="text-xs text-gray-600 mb-2">New video preview:</p>
+                                @if($editingId && $editVideo)
+                                <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                    <source src="{{ $editVideo->temporaryUrl() }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                @elseif(!$editingId && $video)
+                                <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                    <source src="{{ $video->temporaryUrl() }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                @endif
+                            </div>
                             @endif
 
                             <!-- Show existing video if editing and no new video -->
                             @if ($editingId && $currentVideoUrl && !$editVideo)
-                                <div class="mt-4">
-                                    <p class="text-xs text-gray-600 mb-2">Current video:</p>
-                                    <video controls class="h-32 w-full rounded-lg border border-gray-100">
-                                        <source src="{{ $currentVideoUrl }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
+                            <div class="mt-4">
+                                <p class="text-xs text-gray-600 mb-2">Current video:</p>
+                                <video controls class="h-32 w-full rounded-lg border border-gray-100">
+                                    <source src="{{ $currentVideoUrl }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
                             @endif
                         </div>
 
@@ -203,10 +203,10 @@
                                 </span>
                             </button>
                             @if($editingId)
-                                <button type="button" wire:click="cancelEdit"
-                                    class="px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 text-gray-600 hover:bg-gray-50 transition-all">
-                                    Cancel
-                                </button>
+                            <button type="button" wire:click="cancelEdit"
+                                class="px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 text-gray-600 hover:bg-gray-50 transition-all">
+                                Cancel
+                            </button>
                             @endif
                         </div>
                     </form>
@@ -235,53 +235,53 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($services as $service)
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $service->title }}</div>
-                                        <div class="text-xs text-gray-500 h-10 overflow-hidden">
-                                            {{ Str::limit($service->description, 60) }}
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="text-sm font-medium text-gray-900">{{ $service->title }}</div>
+                                    <div class="text-xs text-gray-500 h-10 overflow-hidden">
+                                        {{ Str::limit($service->description, 60) }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col gap-2">
+                                        <!-- Image thumbnail -->
+                                        <div
+                                            class="h-12 w-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+                                            <img src="{{ asset('storage/' . $service->image) }}"
+                                                class="h-full w-full object-cover" alt="{{ $service->title }}">
                                         </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex flex-col gap-2">
-                                            <!-- Image thumbnail -->
-                                            <div
-                                                class="h-12 w-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
-                                                <img src="{{ asset('storage/' . $service->image) }}"
-                                                    class="h-full w-full object-cover" alt="{{ $service->title }}">
-                                            </div>
-                                            <!-- Video indicator -->
-                                            @if($service->video_url)
-                                                <span class="inline-flex items-center text-xs text-green-600">
-                                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
-                                                    </svg>
-                                                    Video
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <button wire:click="toggleActive({{ $service->id }})"
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $service->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                            {{ $service->is_active ? 'Active' : 'Inactive' }}
-                                        </button>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                                        <button wire:click="edit({{ $service->id }})"
-                                            class="text-[#6b66ff] hover:text-[#5a56e6] font-semibold">Edit</button>
-                                        <button wire:click="delete({{ $service->id }})"
-                                            wire:confirm="Are you sure you want to delete this service?"
-                                            class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
-                                    </td>
-                                </tr>
+                                        <!-- Video indicator -->
+                                        @if($service->video_url)
+                                        <span class="inline-flex items-center text-xs text-green-600">
+                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
+                                            </svg>
+                                            Video
+                                        </span>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button wire:click="toggleActive({{ $service->id }})"
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $service->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ $service->is_active ? 'Active' : 'Inactive' }}
+                                    </button>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                    <button wire:click="edit({{ $service->id }})"
+                                        class="text-[#6b66ff] hover:text-[#5a56e6] font-semibold">Edit</button>
+                                    <button wire:click="delete({{ $service->id }})"
+                                        wire:confirm="Are you sure you want to delete this service?"
+                                        class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 italic">
-                                        No services added yet.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="4" class="px-6 py-12 text-center text-gray-500 italic">
+                                    No services added yet.
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
