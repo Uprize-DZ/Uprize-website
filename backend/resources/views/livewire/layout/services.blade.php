@@ -1,340 +1,569 @@
 <div class="relative py-32 overflow-hidden bg-white">
     <livewire:layout.background></livewire:layout.background>
+
+    <!-- SVG filter for subtle edge roughness -->
+    <svg width="0" height="0" style="position:absolute;overflow:hidden">
+        <defs>
+            <filter id="roughen">
+                <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" result="noise" seed="2" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Section Header -->
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-20 text-center">
-        <h2 class="text-5xl font-bold text-gray-900 mb-4">What We Create</h2>
-        <p class="text-xl text-gray-600">Scroll to explore our creative services</p>
-    </div>
-
-    <!-- 3D Carousel Container -->
-    <div class="relative h-[600px] perspective-container">
-        <div class="services-carousel" id="servicesCarousel">
-
-            <!-- Service Cards -->
-            @foreach ($services as $service)
-            <div class="service-card" data-index="0">
-                <!-- Service Icon -->
-                <div class="service-icon">
-                    @if($service->image)
-                    <img src="{{asset('storage/' . $service->image)}}" class="w-full h-full object-contain"
-                        alt="{{$service->title}}">
-
-                    @endif
-                </div>
-                <h3 class="service-title">{{$service->title}}</h3>
-                <p class="service-description">
-                    {{$service->description}}
-                </p>
-                <a href="{{ route('services.show', $service->id) }}" class="service-button group">
-                    Learn More
-                    <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform inline-block" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                </a>
-            </div>
-            @endforeach
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-16 text-center">
+        <div class="svc-header">
+            <div class="svc-header-mark"></div>
+            <h2 class="services-heading">What We<br><em>Provide</em></h2>
 
         </div>
+    </div>
 
-        <!-- Navigation Dots -->
-        <div class="carousel-dots">
+    <!-- Stack Carousel -->
+    <div class="stack-scene" id="stackScene">
+        <div class="stack-wrapper" id="stackWrapper">
             @foreach ($services as $index => $service)
-            <button class="dot {{ $index === 2 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+            <div class="stack-card" data-index="{{ $index }}" data-id="{{ $service->id }}">
+
+                <!-- Paper texture overlay -->
+                <div class="card-paper"></div>
+
+                <div class="card-inner">
+                    <!-- Left panel -->
+                    <div class="card-left" data-pattern="{{ $index % 4 }}">
+                        <!-- Ink stamp number -->
+                        <div class="stamp-wrap">
+                            <svg class="stamp-ring" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="40" cy="40" r="34" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round" />
+                            </svg>
+                            <span class="card-number">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                        </div>
+
+                        @if($service->image)
+                        <div class="card-icon">
+                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}">
+                        </div>
+                        @endif
+
+                        <!-- Pattern lines decoration -->
+                        <div class="panel-pattern"></div>
+                    </div>
+
+                    <!-- Right panel -->
+                    <div class="card-right">
+
+
+                        <h3 class="card-title">{{ $service->title }}</h3>
+
+                        <!-- Thin ruled line -->
+                        <div class="card-rule"></div>
+
+                        <p class="card-desc">{{ $service->description }}</p>
+
+                        <a href="{{ route('services.show', $service->id) }}" class="card-cta">
+                            <span class="cta-text">Explore this service</span>
+                            <span class="cta-line"></span>
+                            <svg class="cta-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
             @endforeach
+        </div>
+
+        <!-- Controls row -->
+        <div class="controls-row">
+            <button class="ctrl-btn" id="prevBtn" aria-label="Previous">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l6-6M5 12l6 6" />
+                </svg>
+            </button>
+
+            <div class="counter-wrap">
+                <span class="counter-current" id="ctrlCounter">01</span>
+                <span class="counter-sep">/</span>
+                <span class="counter-total" id="ctrlTotal">00</span>
+            </div>
+
+            <button class="ctrl-btn" id="nextBtn" aria-label="Next">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0l-6 6m6-6l-6-6" />
+                </svg>
+            </button>
+
+            <!-- Tick marks progress -->
+            <div class="tick-track" id="tickTrack"></div>
         </div>
     </div>
 
     @push('styles')
     <style>
-        .perspective-container {
-            perspective: 2000px;
+        /* ── Header ── */
+        .svc-header {
             position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .services-carousel {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-style: preserve-3d;
+        .svc-header-mark {
+            font-size: 1.1rem;
+            color: #6b66ff;
+            margin-bottom: 12px;
+            letter-spacing: 0.1em;
         }
 
-        .service-card {
+        .services-heading {
+            font-family: Impact, Haettenschweiler, sans-serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-weight: 500;
+            color: #111827;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 18px;
+        }
+
+        .services-heading em {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+            font-weight: 400;
+            color: #6b66ff;
+            letter-spacing: -0.02em;
+        }
+
+        .services-subheading {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #9ca3af;
+            font-weight: 300;
+        }
+
+        /* ── Scene ── */
+        .stack-scene {
+            position: relative;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px 72px;
+            z-index: -0;
+        }
+
+        .stack-wrapper {
+            position: relative;
+            height: 290px;
+        }
+
+        @media (max-width: 640px) {
+            .stack-wrapper {
+                height: 370px;
+            }
+        }
+
+        /* ── Card ── */
+        .stack-card {
             position: absolute;
-            width: 420px;
-            height: 520px;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            inset: 0;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e2ddd8;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
             cursor: pointer;
-            transform-style: preserve-3d;
+            transition:
+                transform 0.6s cubic-bezier(0.34, 1.15, 0.64, 1),
+                opacity 0.45s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+            will-change: transform, opacity;
+        }
+
+        /* Paper grain overlay */
+        .card-paper {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            border-radius: inherit;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 150px 150px;
+            mix-blend-mode: multiply;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        /* ── Left panel ── */
+        .card-left {
+            width: 148px;
+            flex-shrink: 0;
+            border-right: 1px solid #e8e4df;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            padding: 48px 40px;
+            justify-content: center;
+            gap: 18px;
+            padding: 28px 16px;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
         }
 
-        .service-icon {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 24px;
-            transition: transform 0.6s ease;
-            flex-shrink: 0;
+        .panel-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.06;
+            pointer-events: none;
         }
 
-        .service-card.active .service-icon {
-            transform: scale(1.1);
+        .card-left[data-pattern="0"] .panel-pattern {
+            background-image: repeating-linear-gradient(45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 8px);
         }
 
-        .service-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 16px;
-            transition: all 0.4s ease;
+        .card-left[data-pattern="1"] .panel-pattern {
+            background-image: repeating-linear-gradient(-45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 8px);
         }
 
-        .service-description {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #6b7280;
-            margin-bottom: 32px;
-            flex-grow: 1;
-            transition: all 0.4s ease;
-            max-width: 100%;
+        .card-left[data-pattern="2"] .panel-pattern {
+            background-image: radial-gradient(circle, #6b66ff 1px, transparent 1px);
+            background-size: 10px 10px;
         }
 
-        .service-button {
-            padding: 14px 32px;
-            background: white;
-            border: 2px solid #e5e7eb;
-            color: #1f2937;
-            font-weight: 600;
-            font-size: 15px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
+        .card-left[data-pattern="3"] .panel-pattern {
+            background-image:
+                repeating-linear-gradient(0deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 9px),
+                repeating-linear-gradient(90deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 9px);
+        }
+
+        /* Ink stamp */
+        .stamp-wrap {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .service-button:hover {
+        .stamp-ring {
+            position: absolute;
+            inset: 0;
+            color: #6b66ff;
+            opacity: 0.2;
+            transition: opacity 0.35s ease, transform 0.6s ease;
+        }
+
+        .card-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #ccc7c2;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            transition: color 0.35s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            width: 58px;
+            height: 58px;
+            filter: grayscale(25%) opacity(0.85);
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* ── Right panel ── */
+        .card-right {
+            flex: 1;
+            padding: 32px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Editorial bracket mark */
+        .card-mark {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #b5b0ab;
+            margin-bottom: 13px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .mark-bracket {
+            color: #6b66ff;
+            opacity: 0.45;
+            font-size: 12px;
+            font-weight: 300;
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1714;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 13px;
+        }
+
+        /* Short ruled accent line */
+        .card-rule {
+            width: 28px;
+            height: 1.5px;
+            background: #6b66ff;
+            opacity: 0.25;
+            margin-bottom: 13px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+        }
+
+        .card-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.91rem;
+            line-height: 1.75;
+            color: #7c7670;
+            font-weight: 300;
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Editorial underline CTA — no button border */
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1a1714;
+            position: relative;
+            width: fit-content;
+            padding-bottom: 3px;
+        }
+
+        .cta-text {
+            position: relative;
+            z-index: 1;
+            transition: color 0.25s ease;
+        }
+
+        .cta-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            width: 0%;
+            background: #6b66ff;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-arrow {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: #b5b0ab;
+        }
+
+        .card-cta:hover .cta-line {
+            width: 100%;
+        }
+
+        .card-cta:hover .cta-arrow {
+            transform: translateX(4px);
+            color: #6b66ff;
+        }
+
+        .card-cta:hover .cta-text {
+            color: #6b66ff;
+        }
+
+        /* ── Active state ── */
+        .stack-card.is-active {
+            box-shadow:
+                0 24px 60px rgba(107, 102, 255, 0.11),
+                0 4px 16px rgba(0, 0, 0, 0.07),
+                inset 0 0 0 1px rgba(107, 102, 255, 0.12);
+            border-color: rgba(107, 102, 255, 0.16);
+            z-index: 50 !important;
+        }
+
+        .stack-card.is-active .stamp-ring {
+            opacity: 0.65;
+            transform: rotate(12deg);
+        }
+
+        .stack-card.is-active .card-number {
+            color: #6b66ff;
+        }
+
+        .stack-card.is-active .card-icon {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.06) translateY(-2px);
+        }
+
+        .stack-card.is-active .card-rule {
+            width: 164px;
+            opacity: 0.6;
+        }
+
+        /* Peek states */
+        .stack-card.peek-1,
+        .stack-card.peek-2 {
+            pointer-events: none;
+        }
+
+        .stack-card.hidden-card {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ── Controls row ── */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .ctrl-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            border: 1px solid #e2ddd8;
+            background: #fdfcfb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #78716c;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .ctrl-btn:hover {
             border-color: #6b66ff;
             color: #6b66ff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(107, 102, 255, 0.15);
+            background: rgba(107, 102, 255, 0.04);
         }
 
-        .service-card.active .service-button {
-            background: #6b66ff;
-            border-color: #6b66ff;
-            color: white;
+        .ctrl-btn:active {
+            transform: scale(0.92);
         }
 
-        .service-card.active .service-button:hover {
-            background: #5a56e6;
-            border-color: #5a56e6;
-        }
-
-        /* Positioning for 3D carousel effect */
-        .service-card[data-index="0"] {
-            transform: translateX(-600px) translateZ(-400px) scale(0.75);
-            opacity: 0.4;
-            filter: blur(3px);
-            pointer-events: none;
-        }
-
-        .service-card[data-index="1"] {
-            transform: translateX(-300px) translateZ(-200px) scale(0.85);
-            opacity: 0.6;
-            filter: blur(1.5px);
-        }
-
-        .service-card[data-index="2"] {
-            transform: translateX(0) translateZ(0) scale(1);
-            opacity: 1;
-            filter: blur(0);
-            z-index: 10;
-        }
-
-        .service-card[data-index="3"] {
-            transform: translateX(300px) translateZ(-200px) scale(0.85);
-            opacity: 0.6;
-            filter: blur(1.5px);
-        }
-
-        .service-card[data-index="4"] {
-            transform: translateX(600px) translateZ(-400px) scale(0.75);
-            opacity: 0.4;
-            filter: blur(3px);
-            pointer-events: none;
-        }
-
-        /* Navigation Dots */
-        .carousel-dots {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
+        .counter-wrap {
             display: flex;
-            gap: 12px;
-            z-index: 20;
+            align-items: baseline;
+            gap: 3px;
+            flex-shrink: 0;
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #d1d5db;
+        .counter-current {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1a1714;
+        }
+
+        .counter-sep {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            color: #d1cdc8;
+        }
+
+        .counter-total {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            color: #b5b0ab;
+            font-weight: 300;
+        }
+
+        /* Tick marks */
+        .tick-track {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tick {
+            height: 10px;
+            width: 2px;
+            background: #e2ddd8;
+            border-radius: 2px;
             border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
             padding: 0;
+            transition: background 0.25s ease, height 0.25s ease;
+            cursor: pointer;
         }
 
-        .dot:hover {
-            background: #9ca3af;
-            transform: scale(1.2);
-        }
-
-        .dot.active {
+        .tick.is-active {
             background: #6b66ff;
-            width: 32px;
-            border-radius: 6px;
+            height: 18px;
         }
 
-        /* Hover effects */
-        .service-card:not(.active):hover .service-content {
-            border-color: rgba(107, 102, 255, 0.3);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        .tick:hover:not(.is-active) {
+            background: #a5a2ff;
         }
 
-        /* Tablet Responsiveness */
-        @media (max-width: 1024px) {
-            .service-card {
-                width: 360px;
-                height: 480px;
-                padding: 36px 32px;
+        /* ── Mobile ── */
+        @media (max-width: 640px) {
+            .card-left {
+                width: 72px;
+                padding: 20px 10px;
             }
 
-            .service-icon {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 20px;
+            .stamp-wrap {
+                width: 54px;
+                height: 54px;
             }
 
-            .service-title {
-                font-size: 24px;
+            .card-number {
+                font-size: 1.1rem;
             }
 
-            .service-description {
-                font-size: 15px;
-                margin-bottom: 24px;
+            .card-icon {
+                width: 42px;
+                height: 42px;
             }
 
-            .service-card[data-index="0"] {
-                transform: translateX(-450px) translateZ(-350px) scale(0.7);
+            .card-right {
+                padding: 22px 18px;
             }
 
-            .service-card[data-index="1"] {
-                transform: translateX(-230px) translateZ(-180px) scale(0.8);
+            .card-title {
+                font-size: 1.25rem;
             }
 
-            .service-card[data-index="3"] {
-                transform: translateX(230px) translateZ(-180px) scale(0.8);
+            .card-desc {
+                font-size: 0.85rem;
+                -webkit-line-clamp: 3;
             }
 
-            .service-card[data-index="4"] {
-                transform: translateX(450px) translateZ(-350px) scale(0.7);
-            }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .perspective-container {
-                height: 520px;
-            }
-
-            .service-card {
-                width: 320px;
-                height: 460px;
-                padding: 32px 24px;
-            }
-
-            .service-icon {
-                width: 90px;
-                height: 90px;
-                margin-bottom: 16px;
-            }
-
-            .service-title {
-                font-size: 22px;
-                margin-bottom: 12px;
-            }
-
-            .service-description {
-                font-size: 14px;
-                line-height: 1.6;
-                margin-bottom: 20px;
-            }
-
-            .service-button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-
-            /* Hide far cards on mobile */
-            .service-card[data-index="0"],
-            .service-card[data-index="4"] {
+            .card-mark {
                 display: none;
             }
 
-            .service-card[data-index="1"] {
-                transform: translateX(-180px) translateZ(-150px) scale(0.75);
-            }
-
-            .service-card[data-index="3"] {
-                transform: translateX(180px) translateZ(-150px) scale(0.75);
-            }
-        }
-
-        /* Small Mobile */
-        @media (max-width: 480px) {
-            .perspective-container {
-                height: 480px;
-            }
-
-            .service-card {
-                width: 280px;
-                height: 420px;
-                padding: 28px 20px;
-            }
-
-            .service-icon {
-                width: 80px;
-                height: 80px;
-            }
-
-            .service-title {
-                font-size: 20px;
-            }
-
-            .service-description {
-                font-size: 13px;
-            }
-
-            .service-card[data-index="1"] {
-                transform: translateX(-160px) translateZ(-120px) scale(0.7);
-                opacity: 0.5;
-            }
-
-            .service-card[data-index="3"] {
-                transform: translateX(160px) translateZ(-120px) scale(0.7);
-                opacity: 0.5;
+            .services-heading {
+                font-size: 2.4rem;
             }
         }
     </style>
@@ -343,144 +572,145 @@
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('servicesCarousel');
-            const cards = carousel.querySelectorAll('.service-card');
-            const dots = document.querySelectorAll('.dot');
-            let currentIndex = 2; // Start with middle card
-            const totalCards = cards.length;
+            const wrapper = document.getElementById('stackWrapper');
+            const cards = Array.from(wrapper.querySelectorAll('.stack-card'));
+            const ctrlCounter = document.getElementById('ctrlCounter');
+            const ctrlTotal = document.getElementById('ctrlTotal');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const tickTrack = document.getElementById('tickTrack');
 
-            let autoScrollInterval;
-            let isAutoScrolling = true;
+            let current = 0;
+            const total = cards.length;
+            let isPaused = false;
+            let autoTimer = null;
 
-            function updateCarousel(newIndex) {
-                currentIndex = newIndex;
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
 
-                cards.forEach((card, index) => {
-                    card.classList.remove('active');
+            // Build tick marks
+            ctrlTotal.textContent = pad(total);
+            for (let i = 0; i < total; i++) {
+                const t = document.createElement('button');
+                t.className = 'tick';
+                t.setAttribute('aria-label', 'Go to service ' + (i + 1));
+                t.addEventListener('click', () => {
+                    isPaused = true;
+                    current = i;
+                    render();
+                    setTimeout(() => {
+                        isPaused = false;
+                    }, 3500);
+                });
+                tickTrack.appendChild(t);
+            }
 
-                    // Calculate position relative to current index
-                    let position = index - currentIndex;
+            function render() {
+                const ticks = tickTrack.querySelectorAll('.tick');
 
-                    // Wrap around for circular effect
-                    if (position < -2) position += totalCards;
-                    if (position > 2) position -= totalCards;
+                cards.forEach((card, i) => {
+                    card.classList.remove('is-active', 'peek-1', 'peek-2', 'hidden-card');
+                    const rel = ((i - current) % total + total) % total;
 
-                    card.setAttribute('data-index', position + 2);
-
-                    if (position === 0) {
-                        card.classList.add('active');
+                    if (rel === 0) {
+                        card.classList.add('is-active');
+                        card.style.transform = 'translateY(0) rotate(0deg) scale(1)';
+                        card.style.opacity = '1';
+                        card.style.zIndex = '30';
+                    } else if (rel === 1) {
+                        card.classList.add('peek-1');
+                        card.style.transform = 'translateY(16px) rotate(1.8deg) scale(0.965)';
+                        card.style.opacity = '0.52';
+                        card.style.zIndex = '20';
+                    } else if (rel === 2) {
+                        card.classList.add('peek-2');
+                        card.style.transform = 'translateY(29px) rotate(3.3deg) scale(0.93)';
+                        card.style.opacity = '0.26';
+                        card.style.zIndex = '10';
+                    } else {
+                        card.classList.add('hidden-card');
+                        card.style.opacity = '0';
+                        card.style.zIndex = '1';
                     }
                 });
 
-                // Update dots
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentIndex);
-                });
+                ticks.forEach((t, i) => t.classList.toggle('is-active', i === current));
+                ctrlCounter.textContent = pad(current + 1);
             }
 
-            // Auto-scroll functionality
-            function startAutoScroll() {
-                autoScrollInterval = setInterval(() => {
-                    if (isAutoScrolling) {
-                        updateCarousel((currentIndex + 1) % totalCards);
-                    }
-                }, 3000);
+            function goNext() {
+                current = (current + 1) % total;
+                render();
             }
 
-            function stopAutoScroll() {
-                if (autoScrollInterval) {
-                    clearInterval(autoScrollInterval);
-                }
+            function goPrev() {
+                current = (current - 1 + total) % total;
+                render();
             }
 
-            function pauseAutoScroll() {
-                isAutoScrolling = false;
+            function startAuto() {
+                autoTimer = setInterval(() => {
+                    if (!isPaused) goNext();
+                }, 4200);
             }
 
-            function resumeAutoScroll() {
-                isAutoScrolling = true;
-            }
-
-            // Start auto-scroll on load
-            startAutoScroll();
-
-            // Pause auto-scroll on hover
-            carousel.addEventListener('mouseenter', pauseAutoScroll);
-            carousel.addEventListener('mouseleave', resumeAutoScroll);
-
-            // Mouse wheel scrolling
-            let wheelTimeout;
-            carousel.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                pauseAutoScroll();
-                clearTimeout(wheelTimeout);
-
-                if (e.deltaY > 0) {
-                    updateCarousel((currentIndex + 1) % totalCards);
-                } else if (e.deltaY < 0) {
-                    updateCarousel((currentIndex - 1 + totalCards) % totalCards);
-                }
-
-                wheelTimeout = setTimeout(() => {
-                    resumeAutoScroll();
-                }, 2000);
-            }, {
-                passive: false
-            });
-
-            // Click on cards to center them
-            cards.forEach((card, index) => {
-                card.addEventListener('click', () => {
-                    pauseAutoScroll();
-                    updateCarousel(index);
-                    setTimeout(() => {
-                        resumeAutoScroll();
-                    }, 3000);
-                });
-            });
-
-            // Click on dots
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    pauseAutoScroll();
-                    const slideIndex = parseInt(dot.getAttribute('data-slide'));
-                    updateCarousel(slideIndex);
-                    setTimeout(() => {
-                        resumeAutoScroll();
-                    }, 3000);
-                });
-            });
-
-            // Touch/Swipe support
-            let touchStartX = 0;
-            let touchEndX = 0;
-
-            carousel.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-                pauseAutoScroll();
-            });
-
-            carousel.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
+            nextBtn.addEventListener('click', () => {
+                isPaused = true;
+                goNext();
                 setTimeout(() => {
-                    resumeAutoScroll();
-                }, 3000);
+                    isPaused = false;
+                }, 3500);
+            });
+            prevBtn.addEventListener('click', () => {
+                isPaused = true;
+                goPrev();
+                setTimeout(() => {
+                    isPaused = false;
+                }, 3500);
             });
 
-            function handleSwipe() {
-                if (touchEndX < touchStartX - 50) {
-                    updateCarousel((currentIndex + 1) % totalCards);
-                }
-                if (touchEndX > touchStartX + 50) {
-                    updateCarousel((currentIndex - 1 + totalCards) % totalCards);
-                }
-            }
-
-            // Clean up on page unload
-            window.addEventListener('beforeunload', () => {
-                stopAutoScroll();
+            cards.forEach((card) => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.card-cta')) return;
+                    const rel = ((parseInt(this.dataset.index) - current) % total + total) % total;
+                    if (rel === 0) return;
+                    isPaused = true;
+                    current = parseInt(this.dataset.index);
+                    render();
+                    setTimeout(() => {
+                        isPaused = false;
+                    }, 3500);
+                });
             });
+
+            wrapper.addEventListener('mouseenter', () => {
+                isPaused = true;
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                isPaused = false;
+            });
+
+            let tx = 0;
+            wrapper.addEventListener('touchstart', e => {
+                tx = e.touches[0].clientX;
+                isPaused = true;
+            }, {
+                passive: true
+            });
+            wrapper.addEventListener('touchend', e => {
+                const dx = e.changedTouches[0].clientX - tx;
+                if (dx < -50) goNext();
+                else if (dx > 50) goPrev();
+                setTimeout(() => {
+                    isPaused = false;
+                }, 3500);
+            });
+
+            render();
+            startAuto();
+            window.addEventListener('beforeunload', () => clearInterval(autoTimer));
         });
     </script>
     @endpush
+</div>
