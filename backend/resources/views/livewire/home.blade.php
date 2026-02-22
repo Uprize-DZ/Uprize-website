@@ -42,55 +42,55 @@
                 <!-- Right Visual -->
                 <div class="relative lg:pl-8 animate-fade-in" style="animation-delay: 0.2s;">
                     @if($home->image)
-                        <div class="relative aspect-square max-w-lg mx-auto">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-[#e8e7ff] to-[#f4f4ff] rounded-3xl transform rotate-6 opacity-50">
-                            </div>
-                            <div class="relative bg-white rounded-3xl shadow-2xl p-2 border border-gray-100">
-                                <img src="{{ asset('storage/' . $home->image) }}" alt="{{ $home->title }}"
-                                    class="w-full h-full object-cover rounded-2xl">
-                            </div>
+                    <div class="relative aspect-square max-w-lg mx-auto">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-[#e8e7ff] to-[#f4f4ff] rounded-3xl transform rotate-6 opacity-50">
                         </div>
+                        <div class="relative bg-white rounded-3xl shadow-2xl p-2 border border-gray-100">
+                            <img src="{{ asset('storage/' . $home->image) }}" alt="{{ $home->title }}"
+                                class="w-full h-full object-cover rounded-2xl">
+                        </div>
+                    </div>
                     @else
-                        <div class="relative aspect-square max-w-lg mx-auto">
-                            <!-- 3D Card Visualization -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-[#e8e7ff] to-[#f4f4ff] rounded-3xl transform rotate-6 opacity-50">
-                            </div>
-                            <div class="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
-                                <!-- Device Preview -->
-                                <div class="space-y-4">
-                                    <div class="h-3 w-3/4 bg-gray-200 rounded animate-pulse"></div>
-                                    <div class="h-3 w-full bg-gray-100 rounded animate-pulse"
-                                        style="animation-delay: 0.1s;"></div>
-                                    <div class="h-3 w-5/6 bg-gray-100 rounded animate-pulse" style="animation-delay: 0.2s;">
-                                    </div>
+                    <div class="relative aspect-square max-w-lg mx-auto">
+                        <!-- 3D Card Visualization -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-[#e8e7ff] to-[#f4f4ff] rounded-3xl transform rotate-6 opacity-50">
+                        </div>
+                        <div class="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+                            <!-- Device Preview -->
+                            <div class="space-y-4">
+                                <div class="h-3 w-3/4 bg-gray-200 rounded animate-pulse"></div>
+                                <div class="h-3 w-full bg-gray-100 rounded animate-pulse"
+                                    style="animation-delay: 0.1s;"></div>
+                                <div class="h-3 w-5/6 bg-gray-100 rounded animate-pulse" style="animation-delay: 0.2s;">
+                                </div>
 
-                                    <div class="pt-6 space-y-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-12 h-12 bg-[#6b66ff] rounded-xl flex items-center justify-center">
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </div>
-                                            <div class="flex-1 space-y-2">
-                                                <div class="h-2 w-24 bg-gray-200 rounded"></div>
-                                                <div class="h-2 w-16 bg-gray-100 rounded"></div>
-                                            </div>
+                                <div class="pt-6 space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-[#6b66ff] rounded-xl flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
                                         </div>
-                                        <div class="flex items-center gap-3 opacity-75">
-                                            <div class="w-12 h-12 bg-gray-100 rounded-xl"></div>
-                                            <div class="flex-1 space-y-2">
-                                                <div class="h-2 w-24 bg-gray-200 rounded"></div>
-                                                <div class="h-2 w-16 bg-gray-100 rounded"></div>
-                                            </div>
+                                        <div class="flex-1 space-y-2">
+                                            <div class="h-2 w-24 bg-gray-200 rounded"></div>
+                                            <div class="h-2 w-16 bg-gray-100 rounded"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3 opacity-75">
+                                        <div class="w-12 h-12 bg-gray-100 rounded-xl"></div>
+                                        <div class="flex-1 space-y-2">
+                                            <div class="h-2 w-24 bg-gray-200 rounded"></div>
+                                            <div class="h-2 w-16 bg-gray-100 rounded"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     @endif
                 </div>
             </div>
@@ -111,52 +111,52 @@
     <livewire:layout.services />
 
     @push('styles')
-        <style>
-            @keyframes fade-in-up {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+    <style>
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
 
-            @keyframes fade-in {
-                from {
-                    opacity: 0;
-                }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-                to {
-                    opacity: 1;
-                }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
             }
 
-            @keyframes float {
+            to {
+                opacity: 1;
+            }
+        }
 
-                0%,
-                100% {
-                    transform: translateY(0) translateX(0);
-                }
+        @keyframes float {
 
-                50% {
-                    transform: translateY(-20px) translateX(10px);
-                }
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
             }
 
-            .animate-fade-in-up {
-                animation: fade-in-up 0.8s ease-out;
+            50% {
+                transform: translateY(-20px) translateX(10px);
             }
+        }
 
-            .animate-fade-in {
-                animation: fade-in 0.8s ease-out;
-            }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out;
+        }
 
-            .animate-float {
-                animation: float 6s ease-in-out infinite;
-            }
-        </style>
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
     @endpush
 </x-app-layout>
