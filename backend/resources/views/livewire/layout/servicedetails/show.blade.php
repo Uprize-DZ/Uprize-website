@@ -613,40 +613,50 @@
                         <div class="res-title">Book this <em>Service</em></div>
                     </div>
                     <div class="res-body">
-                        <form id="resForm">
-                            @csrf
-                            <input type="hidden" name="service_id" value="{{ $service->id }}">
-
-                            <div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" name="name" placeholder="Your full name" required></div>
-                            <div class="fg"><label class="fl">Email</label><input class="fi" type="email" name="email" placeholder="you@example.com" required></div>
-                            <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" name="phone" placeholder="+1 (000) 000-0000"></div>
-
-                            <div class="divider"><span>Schedule</span></div>
-
-                            <div class="row2 fg">
-                                <div><label class="fl">Date</label><input class="fi" type="date" name="preferred_date" id="res_date" required></div>
-                                <div><label class="fl">Time</label><input class="fi" type="time" name="preferred_time"></div>
-                            </div>
-
+                        <form wire:submit.prevent="save">
                             <div class="fg">
-                                <label class="fl">Budget</label>
-                                <select class="fi" name="budget">
-                                    <option value="" disabled selected>Select a range</option>
-                                    <option>Under $1,000</option>
-                                    <option>$1,000 — $5,000</option>
-                                    <option>$5,000 — $10,000</option>
-                                    <option>$10,000+</option>
-                                </select>
+                                <label class="fl">Full Name</label>
+                                <input class="fi" type="text" wire:model="form.name" placeholder="Your full name" required>
+                                @error('form.name') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="fg">
+                                <label class="fl">Email</label>
+                                <input class="fi" type="email" wire:model="form.email" placeholder="you@example.com" required>
+                                @error('form.email') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="fg">
+                                <label class="fl">Phone</label>
+                                <input class="fi" type="tel" wire:model="form.phone" placeholder="+1 (000) 000-0000">
+                                @error('form.phone') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="fg">
+                                <label class="fl">Date</label>
+                                <input class="fi" type="date" wire:model="form.preferred_date" required min="{{ date('Y-m-d') }}">
+                                @error('form.preferred_date') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="fg">
+                                <label class="fl">Project Details</label>
+                                <textarea class="fi" wire:model="form.message" placeholder="Goals, timeline, requirements..."></textarea>
+                                @error('form.message') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="fg"><label class="fl">Project Details</label><textarea class="fi" name="message" placeholder="Goals, timeline, requirements..."></textarea></div>
+                            <button type="submit" class="btn-submit relative overflow-hidden group" wire:loading.attr="disabled" wire:target="save">
+                                <span wire:loading.remove wire:target="save" class="flex items-center gap-2">
+                                    Confirm Reservation
+                                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="group-hover:translate-x-1 transition-transform">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </span>
 
-                            <button type="submit" class="btn-submit">
-                                Reserve this Service
-                                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
+                                <span wire:loading wire:target="save" class="flex items-center gap-2">
+                                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </span>
                             </button>
+
                             <div class="trust">
                                 <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -654,51 +664,10 @@
                                 No commitment — we'll reply within 24h
                             </div>
                         </form>
-
-                        <div class="res-ok" id="resOk">
-                            <svg class="ring" width="56" height="56" viewBox="0 0 56 56" fill="none">
-                                <circle cx="28" cy="28" r="24" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round" />
-                                <path d="M18 28l7 7 13-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <h3>Request Sent</h3>
-                            <p>We've received your reservation and will get back to you within 24 hours.</p>
-                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
-
-    @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('res_date').min = new Date().toISOString().split('T')[0];
-
-            document.getElementById('resForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const btn = this.querySelector('.btn-submit');
-                btn.textContent = 'Sending...';
-                btn.disabled = true;
-                try {
-                    const r = await fetch(this.action, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': this._token.value
-                        },
-                        body: new FormData(this)
-                    });
-                    if (r.ok) {
-                        this.style.display = 'none';
-                        document.getElementById('resOk').style.display = 'block';
-                    } else throw 0;
-                } catch {
-                    this.submit();
-                }
-            });
-        });
-    </script>
-    @endpush
-
 </x-app-layout>

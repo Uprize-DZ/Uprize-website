@@ -48,6 +48,78 @@
                     <h3 class="text-lg font-bold text-gray-900">Services</h3>
                     <p class="text-sm text-gray-500 mt-1">Create and manage your service offerings.</p>
                 </a>
+
+                <!-- Reservations Card -->
+                <a href="{{ route('admin.reservations.index') }}"
+                    class="block p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div
+                        class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#6b66ff] group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Reservations</h3>
+                    <p class="text-sm text-gray-500 mt-1">View and manage service bookings.</p>
+                </a>
+            </div>
+
+            {{-- Recent Reservations Table --}}
+            <div class="mt-12 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-gray-900">Recent Reservations</h2>
+                    <a href="{{ route('admin.reservations.index') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-700">View All</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-50 text-gray-600 text-sm uppercase">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold text-xs tracking-wider border-b border-gray-100">Client</th>
+                                <th class="px-6 py-4 font-semibold text-xs tracking-wider border-b border-gray-100">Service</th>
+                                <th class="px-6 py-4 font-semibold text-xs tracking-wider border-b border-gray-100">Date</th>
+                                <th class="px-6 py-4 font-semibold text-xs tracking-wider border-b border-gray-100">Status</th>
+                                <th class="px-6 py-4 font-semibold text-xs tracking-wider border-b border-gray-100 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            @forelse($recentReservations as $reservation)
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="font-medium text-gray-900">{{ $reservation->name }}</div>
+                                    <div class="text-xs text-gray-500">{{ $reservation->email }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-medium">
+                                        {{ $reservation->service?->title ?? 'N/A' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ $reservation->preferred_date?->format('M d, Y') ?? 'N/A' }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    @php
+                                    $statusClasses = [
+                                    'pending' => 'bg-yellow-50 text-yellow-700 border-yellow-100',
+                                    'confirmed' => 'bg-green-50 text-green-700 border-green-100',
+                                    'cancelled' => 'bg-red-50 text-red-700 border-red-100',
+                                    ][$reservation->status] ?? 'bg-gray-50 text-gray-700 border-gray-100';
+                                    @endphp
+                                    <span class="px-3 py-1 rounded-full text-xs font-semibold border {{ $statusClasses }}">
+                                        {{ ucfirst($reservation->status) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="{{ route('admin.reservations.show', $reservation) }}" class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">View</a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center text-gray-500">No reservations found yet.</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

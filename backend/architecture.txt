@@ -4,7 +4,8 @@
 │   │   ├── Controllers
 │   │   │   ├── Api
 │   │   │   │   ├── admin
-│   │   │   │   └── HomeController.php
+│   │   │   │   ├── HomeController.php
+│   │   │   │   └── ReservationController.php
 │   │   │   ├── Auth
 │   │   │   │   └── VerifyEmailController.php
 │   │   │   └── Controller.php
@@ -15,20 +16,29 @@
 │   │   │   └── Logout.php
 │   │   ├── Admin
 │   │   │   ├── Dashboard.php
+│   │   │   ├── FooterAdminController
+│   │   │   │   └── Edit.php
 │   │   │   ├── HomeAdminController
 │   │   │   │   └── Edit.php
+│   │   │   ├── ReservationsController
+│   │   │   │   ├── Index.php
+│   │   │   │   └── Show.php
 │   │   │   ├── ServicesAdminController
-│   │   │   │   └── Edit.php
+│   │   │   │   ├── Edit.php
+│   │   │   │   └── Livewire-Services-Edit-Explanation.md
 │   │   │   └── TrustedByAdminController
 │   │   │       └── Edit.php
 │   │   ├── Forms
 │   │   │   ├── HomeForm.php
 │   │   │   └── LoginForm.php
 │   │   └── Layout
+│   │       ├── ServiceDetails.php
 │   │       ├── Services.php
 │   │       └── Trustedby.php
 │   ├── Models
+│   │   ├── Entity.php
 │   │   ├── Home.php
+│   │   ├── Reservation.php
 │   │   ├── Services.php
 │   │   ├── TrustedBy.php
 │   │   └── User.php
@@ -54,6 +64,7 @@
 │   ├── app.php
 │   ├── auth.php
 │   ├── cache.php
+│   ├── cloudinary.php
 │   ├── database.php
 │   ├── filesystems.php
 │   ├── logging.php
@@ -72,10 +83,14 @@
 │   │   ├── 0001_01_01_000002_create_jobs_table.php
 │   │   ├── 2026_01_29_000000_create_home_page.php
 │   │   ├── 2026_02_02_000000_create_trustedBy_table.php
-│   │   └── 2026_02_08_000000_create_services_table.php
+│   │   ├── 2026_02_08_000000_create_services_table.php
+│   │   ├── 2026_02_13_225352_add_video_public_id_to_services_table.php
+│   │   ├── 2026_02_21_150828_create_entity_table.php
+│   │   └── 2026_03_01_000000_reservations_table.php
 │   └── seeders
 │       ├── AdminSeeder.php
-│       └── DatabaseSeeder.php
+│       ├── DatabaseSeeder.php
+│       └── EntitySeeder.php
 ├── .editorconfig
 ├── .env
 ├── .env.example
@@ -130,7 +145,12 @@
 │           │   ├── adminHome
 │           │   │   └── edit.blade.php
 │           │   ├── dashboard.blade.php
+│           │   ├── footer
+│           │   │   └── edit.blade.php
 │           │   ├── navbar.blade.php
+│           │   ├── Reservations
+│           │   │   ├── index.blade.php
+│           │   │   └── show.blade.php
 │           │   ├── services
 │           │   │   └── edit.blade.php
 │           │   └── trustedby
@@ -138,9 +158,11 @@
 │           ├── .gitkeep
 │           ├── home.blade.php
 │           ├── layout
+│           │   ├── background.blade.php
 │           │   ├── footer.blade.php
 │           │   ├── navigation.blade.php
 │           │   ├── servicedetails
+│           │   │   └── show.blade.php
 │           │   ├── services.blade.php
 │           │   └── trustedby.blade.php
 │           ├── pages
@@ -179,4 +201,4 @@
 │       └── ExampleTest.php
 └── vite.config.js
 
-52 directories, 128 files
+57 directories, 145 files

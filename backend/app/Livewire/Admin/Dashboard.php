@@ -10,6 +10,9 @@ class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.admin.dashboard');
+        $recentReservations = \App\Models\Reservation::with('service')->latest()->take(5)->get();
+        return view('livewire.admin.dashboard', [
+            'recentReservations' => $recentReservations
+        ]);
     }
 }
