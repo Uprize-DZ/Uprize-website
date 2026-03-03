@@ -19,9 +19,9 @@
         }
 
         .sp-inner {
-            max-width: 1080px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 80px;
+            padding: clamp(24px, 5vw, 64px) clamp(16px, 3vw, 24px);
         }
 
         /* back */
@@ -158,9 +158,10 @@
             align-items: start;
         }
 
-        @media(max-width:860px) {
+        @media(max-width:1024px) {
             .sp-grid {
                 grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
 
@@ -327,8 +328,13 @@
 
         .res-body {
             padding: 24px 26px;
-            position: sticky;
-            top: 24px;
+        }
+
+        @media(min-width:1025px) {
+            .res-body {
+                position: sticky;
+                top: 100px;
+            }
         }
 
         .fl {
@@ -587,23 +593,26 @@
                     </div>
 
                     {{-- Features --}}
+                    @if($service->show_features && $service->features)
                     <div class="card">
                         <div class="card-body">
                             <div class="card-ttl" style="margin-bottom:4px">What's included</div>
                             <div class="rule" style="margin-top:10px"></div>
-                            @php $features = $service->features ?? ['Professional quality deliverables','Dedicated project manager','Fast turnaround time','Unlimited revisions','Post-delivery support']; @endphp
-                            @foreach($features as $f)
+                            @foreach($service->features as $f)
+                            @if($f['is_visible'])
                             <div class="feat-item">
                                 <div class="feat-tick">
                                     <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <span>{{ $f }}</span>
+                                <span>{{ $f['text'] }}</span>
                             </div>
+                            @endif
                             @endforeach
                         </div>
                     </div>
+                    @endif
                 </div>
 
                 {{-- Right: Reservation --}}

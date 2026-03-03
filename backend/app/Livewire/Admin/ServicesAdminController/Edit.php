@@ -23,6 +23,9 @@ class Edit extends Component
     public $button_text;
     public $button_url;
     public $is_active = true;
+    public $features = [];
+    public $show_features = true;
+    public $newFeature = '';
 
     // For Editing
     public $editingId = null;
@@ -33,6 +36,9 @@ class Edit extends Component
     public $editButtonText;
     public $editButtonUrl;
     public $editIsActive;
+    public $editFeatures = [];
+    public $editShowFeatures = true;
+    public $newEditFeature = '';
 
     // Add this to track current video URL for display
     public $currentVideoUrl = null;
@@ -91,7 +97,6 @@ class Edit extends Component
                     );
                     $videoUrl = $uploadedVideo['secure_url'];
                     $videoPublicId = $uploadedVideo['public_id'];
-
                 } catch (\Exception $e) {
                     \Illuminate\Support\Facades\Log::error('Video upload failed: ' . $e->getMessage(), ['exception' => $e]);
                     $this->dispatch('alert', type: 'error', message: 'Video upload failed: ' . $e->getMessage());
@@ -104,6 +109,8 @@ class Edit extends Component
             Services::create([
                 'title' => $this->title,
                 'description' => $this->description,
+                'features' => $this->features,
+                'show_features' => $this->show_features,
                 'image' => $imagePath,
                 'video_url' => $videoUrl,
                 'video_public_id' => $videoPublicId,
@@ -112,7 +119,7 @@ class Edit extends Component
                 'is_active' => $this->is_active,
             ]);
 
-            $this->reset(['title', 'description', 'image', 'video', 'button_text', 'button_url', 'is_active']);
+            $this->reset(['title', 'description', 'image', 'video', 'button_text', 'button_url', 'is_active', 'features', 'show_features', 'newFeature']);
             $this->dispatch('alert', type: 'success', message: 'Service created successfully');
         } catch (\Exception $e) {
             $this->dispatch('alert', type: 'error', message: 'Error: ' . $e->getMessage());
@@ -128,7 +135,47 @@ class Edit extends Component
         $this->editButtonText = $service->button_text;
         $this->editButtonUrl = $service->button_url;
         $this->editIsActive = $service->is_active;
+        $this->editFeatures = $service->features ?? [];
+        $this->editShowFeatures = $service->show_features;
         $this->currentVideoUrl = $service->video_url;
+    }
+
+    public function addFeature()
+    {
+        if ($this->newFeature) {
+            $this->features[] = ['text' => $this->newFeature, 'is_visible' => true];
+            $this->newFeature = '';
+        }
+    }
+
+    public function removeFeature($index)
+    {
+        unset($this->features[$index]);
+        $this->features = array_values($this->features);
+    }
+
+    public function toggleFeatureVisibility($index)
+    {
+        $this->features[$index]['is_visible'] = !$this->features[$index]['is_visible'];
+    }
+
+    public function addEditFeature()
+    {
+        if ($this->newEditFeature) {
+            $this->editFeatures[] = ['text' => $this->newEditFeature, 'is_visible' => true];
+            $this->newEditFeature = '';
+        }
+    }
+
+    public function removeEditFeature($index)
+    {
+        unset($this->editFeatures[$index]);
+        $this->editFeatures = array_values($this->editFeatures);
+    }
+
+    public function toggleEditFeatureVisibility($index)
+    {
+        $this->editFeatures[$index]['is_visible'] = !$this->editFeatures[$index]['is_visible'];
     }
 
     public function update()
@@ -151,6 +198,8 @@ class Edit extends Component
                 'button_text' => $this->editButtonText,
                 'button_url' => $this->editButtonUrl,
                 'is_active' => $this->editIsActive,
+                'features' => $this->editFeatures,
+                'show_features' => $this->editShowFeatures,
             ];
 
             if ($this->editImage) {
@@ -192,7 +241,6 @@ class Edit extends Component
             $this->dispatch('refreshServices')->self();
 
             $this->cancelEdit();
-
         } catch (\Exception $e) {
             $this->dispatch('alert', type: 'error', message: 'Error: ' . $e->getMessage());
         }
@@ -200,7 +248,7 @@ class Edit extends Component
 
     public function cancelEdit()
     {
-        $this->reset(['editingId', 'editTitle', 'editDescription', 'editImage', 'editVideo', 'editButtonText', 'editButtonUrl', 'editIsActive', 'currentVideoUrl']);
+        $this->reset(['editingId', 'editTitle', 'editDescription', 'editImage', 'editVideo', 'editButtonText', 'editButtonUrl', 'editIsActive', 'currentVideoUrl', 'editFeatures', 'editShowFeatures', 'newEditFeature']);
     }
 
     public function toggleActive($id)
