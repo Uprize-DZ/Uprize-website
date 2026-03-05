@@ -14,5 +14,6 @@ class Entity extends Model
         'website',
         'email',
         'phone',
+        'address',
     ];
 }

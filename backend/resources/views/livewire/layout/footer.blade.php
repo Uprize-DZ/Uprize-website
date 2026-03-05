@@ -48,20 +48,7 @@ $entity = Entity::find(1);
                 <p class="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-4">Location</p>
                 <p class="text-sm text-white/30 leading-relaxed font-light italic">{{ $entity?->address ?? '—' }}</p>
             </div>
-            @foreach([
-            'Company' => ['Our Story', 'Careers', 'Press Kit'],
-            'Resources' => ['Documentation', 'Help Center', 'Community'],
-            'Legal' => ['Privacy Policy', 'Terms of Service'],
-            ] as $col => $links)
-            <div>
-                <p class="text-[10px] uppercase tracking-widest text-white/30 font-semibold mb-4">{{ $col }}</p>
-                <ul class="space-y-3">
-                    @foreach($links as $link)
-                    <li><a href="#" class="text-sm text-white/40 hover:text-white/80 transition-colors">{{ $link }}</a></li>
-                    @endforeach
-                </ul>
-            </div>
-            @endforeach
+
         </div>
 
         {{-- BOTTOM: Copyright + Socials --}}

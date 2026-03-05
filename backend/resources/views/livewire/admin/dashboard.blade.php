@@ -62,6 +62,34 @@
                     <h3 class="text-lg font-bold text-gray-900">Reservations</h3>
                     <p class="text-sm text-gray-500 mt-1">View and manage service bookings.</p>
                 </a>
+
+                <!-- Privacy Policy Card -->
+                <a href="{{ route('admin.policy.edit', ['type' => 'privacy']) }}"
+                    class="block p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div
+                        class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#6b66ff] group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0V7m0 4v4m6 4H6a2 2 0 01-2-2V7a2 2 0 012-2h3l2-2 2 2h3a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Privacy Policy</h3>
+                    <p class="text-sm text-gray-500 mt-1">Edit the privacy policy page content.</p>
+                </a>
+
+                <!-- Terms & Conditions Card -->
+                <a href="{{ route('admin.policy.edit', ['type' => 'terms']) }}"
+                    class="block p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div
+                        class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#6b66ff] group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Terms &amp; Conditions</h3>
+                    <p class="text-sm text-gray-500 mt-1">Edit the terms and conditions page content.</p>
+                </a>
             </div>
 
             {{-- Recent Reservations Table --}}
