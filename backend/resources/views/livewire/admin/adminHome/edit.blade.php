@@ -10,7 +10,7 @@
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                         <input type="text" id="title" wire:model="title"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]">
                         @error('title')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -20,7 +20,7 @@
                     <div>
                         <label for="subtitle" class="block text-sm font-medium text-gray-700">Subtitle</label>
                         <textarea id="subtitle" wire:model="subtitle" rows="3"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]"></textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"></textarea>
                         @error('subtitle')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -30,7 +30,7 @@
                     <div>
                         <label for="button_text" class="block text-sm font-medium text-gray-700">Button Text</label>
                         <input type="text" id="button_text" wire:model="button_text"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]">
                         @error('button_text')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -40,7 +40,7 @@
                     <div>
                         <label for="button_url" class="block text-sm font-medium text-gray-700">Button URL</label>
                         <input type="text" id="button_url" wire:model="button_url"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6b66ff] focus:ring-[#6b66ff]">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]">
                         @error('button_url')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -74,7 +74,7 @@
 
                     <div class="flex justify-end">
                         <button type="submit"
-                            class="group inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
+                            class="group inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-[var(--primary-color)] hover:bg-[var(--secondary-color)] rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
                             Save Changes
                             <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">

@@ -112,7 +112,7 @@
 
         .svc-header-mark {
             font-size: 1.1rem;
-            color: #6b66ff;
+            color: var(--primary-color);
             margin-bottom: 12px;
             letter-spacing: 0.1em;
         }
@@ -130,7 +130,7 @@
         .services-heading em {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
             font-weight: 400;
-            color: #6b66ff;
+            color: var(--primary-color);
             letter-spacing: -0.02em;
         }
 
@@ -224,22 +224,22 @@
         }
 
         .card-left[data-pattern="0"] .panel-pattern {
-            background-image: repeating-linear-gradient(45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 8px);
+            background-image: repeating-linear-gradient(45deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 8px);
         }
 
         .card-left[data-pattern="1"] .panel-pattern {
-            background-image: repeating-linear-gradient(-45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 8px);
+            background-image: repeating-linear-gradient(-45deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 8px);
         }
 
         .card-left[data-pattern="2"] .panel-pattern {
-            background-image: radial-gradient(circle, #6b66ff 1px, transparent 1px);
+            background-image: radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
             background-size: 10px 10px;
         }
 
         .card-left[data-pattern="3"] .panel-pattern {
             background-image:
-                repeating-linear-gradient(0deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 9px),
-                repeating-linear-gradient(90deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 9px);
+                repeating-linear-gradient(0deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 9px),
+                repeating-linear-gradient(90deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 9px);
         }
 
         /* Ink stamp */
@@ -255,7 +255,7 @@
         .stamp-ring {
             position: absolute;
             inset: 0;
-            color: #6b66ff;
+            color: var(--primary-color);
             opacity: 0.2;
             transition: opacity 0.35s ease, transform 0.6s ease;
         }
@@ -308,7 +308,7 @@
         }
 
         .mark-bracket {
-            color: #6b66ff;
+            color: var(--primary-color);
             opacity: 0.45;
             font-size: 12px;
             font-weight: 300;
@@ -328,7 +328,7 @@
         .card-rule {
             width: 28px;
             height: 1.5px;
-            background: #6b66ff;
+            background: var(--primary-color);
             opacity: 0.25;
             margin-bottom: 13px;
             transition: width 0.4s ease, opacity 0.4s ease;
@@ -374,7 +374,7 @@
             left: 0;
             height: 1px;
             width: 0%;
-            background: #6b66ff;
+            background: var(--primary-color);
             transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -389,20 +389,20 @@
 
         .card-cta:hover .cta-arrow {
             transform: translateX(4px);
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         .card-cta:hover .cta-text {
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         /* ── Active state ── */
         .stack-card.is-active {
             box-shadow:
-                0 24px 60px rgba(107, 102, 255, 0.11),
+                0 24px 60px rgba(var(--primary-rgb), 0.11),
                 0 4px 16px rgba(0, 0, 0, 0.07),
-                inset 0 0 0 1px rgba(107, 102, 255, 0.12);
-            border-color: rgba(107, 102, 255, 0.16);
+                inset 0 0 0 1px rgba(var(--primary-rgb), 0.12);
+            border-color: rgba(var(--primary-rgb), 0.16);
             z-index: 50 !important;
         }
 
@@ -412,7 +412,7 @@
         }
 
         .stack-card.is-active .card-number {
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         .stack-card.is-active .card-icon {
@@ -460,9 +460,9 @@
         }
 
         .ctrl-btn:hover {
-            border-color: #6b66ff;
-            color: #6b66ff;
-            background: rgba(107, 102, 255, 0.04);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(var(--primary-rgb), 0.04);
         }
 
         .ctrl-btn:active {
@@ -516,7 +516,7 @@
         }
 
         .tick.is-active {
-            background: #6b66ff;
+            background: var(--primary-color);
             height: 18px;
         }
 

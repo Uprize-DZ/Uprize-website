@@ -7,7 +7,7 @@
                 <p class="mt-2 text-sm text-gray-600">Create and manage the services offered by Uprize.</p>
             </div>
             <a href="{{ route('admin.dashboard') }}"
-                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6b66ff]">
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
                 Back to Dashboard
             </a>
         </div>
@@ -26,7 +26,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Service Title</label>
                             <input type="text" wire:model="{{ $editingId ? 'editTitle' : 'title' }}"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="E.g. Web Development">
                             @error($editingId ? 'editTitle' : 'title') <span
                                 class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -36,7 +36,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
                             <textarea wire:model="{{ $editingId ? 'editDescription' : 'description' }}" rows="4"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="Describe the service..."></textarea>
                             @error($editingId ? 'editDescription' : 'description') <span
                                 class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -48,7 +48,7 @@
                                 <label class="block text-sm font-bold text-gray-900">Service Features</label>
                                 <div class="flex items-center">
                                     <input type="checkbox" wire:model="{{ $editingId ? 'editShowFeatures' : 'show_features' }}"
-                                        class="h-4 w-4 text-[#6b66ff] focus:ring-[#6b66ff] border-gray-300 rounded transition-all">
+                                        class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded transition-all">
                                     <label class="ml-2 block text-xs text-gray-600">Show in Frontend</label>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                             <div class="flex gap-2">
                                 <input type="text" wire:model="{{ $editingId ? 'newEditFeature' : 'newFeature' }}"
                                     wire:keydown.enter.prevent="{{ $editingId ? 'addEditFeature' : 'addFeature' }}"
-                                    class="flex-1 px-3 py-2 text-sm rounded-lg border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff]"
+                                    class="flex-1 px-3 py-2 text-sm rounded-lg border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]"
                                     placeholder="Add a feature...">
                                 <button type="button" wire:click="{{ $editingId ? 'addEditFeature' : 'addFeature' }}"
                                     class="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm hover:bg-black transition-all">
@@ -69,7 +69,7 @@
                                 <div class="flex items-center justify-between p-2 bg-white rounded-lg border border-gray-200 group">
                                     <div class="flex items-center gap-2 flex-1">
                                         <button type="button" wire:click="{{ $editingId ? 'toggleEditFeatureVisibility('.$index.')' : 'toggleFeatureVisibility('.$index.')' }}"
-                                            class="p-1 rounded-md transition-colors {{ $feature['is_visible'] ? 'text-[#6b66ff] bg-indigo-50' : 'text-gray-300 bg-gray-50' }}"
+                                            class="p-1 rounded-md transition-colors {{ $feature['is_visible'] ? 'text-[var(--primary-color)] bg-indigo-50' : 'text-gray-300 bg-gray-50' }}"
                                             title="{{ $feature['is_visible'] ? 'Visible' : 'Hidden' }}">
                                             @if($feature['is_visible'])
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Button Text (Optional)</label>
                             <input type="text" wire:model="{{ $editingId ? 'editButtonText' : 'button_text' }}"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="Learn More">
                             @error($editingId ? 'editButtonText' : 'button_text') <span
                                 class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -109,7 +109,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Button URL (Optional)</label>
                             <input type="text" wire:model="{{ $editingId ? 'editButtonUrl' : 'button_url' }}"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="/more">
                             @error($editingId ? 'editButtonUrl' : 'button_url') <span
                                 class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -119,7 +119,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Service Image</label>
                             <div
-                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[#6b66ff] transition-all">
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[var(--primary-color)] transition-all">
                                 <div class="space-y-1 text-center">
                                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
                                         viewBox="0 0 48 48">
@@ -129,7 +129,7 @@
                                     </svg>
                                     <div class="flex text-sm text-gray-600">
                                         <label
-                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[#6b66ff] hover:text-[#5a56e6] focus-within:outline-none">
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[var(--primary-color)] hover:text-[var(--secondary-color)] focus-within:outline-none">
                                             <span>Upload an image</span>
                                             <input type="file" wire:model="{{ $editingId ? 'editImage' : 'image' }}"
                                                 class="sr-only" accept="image/*">
@@ -137,7 +137,7 @@
                                     </div>
                                     <p class="text-xs text-gray-500">PNG, JPG up to 2MB</p>
                                     <div wire:loading wire:target="{{ $editingId ? 'editImage' : 'image' }}"
-                                        class="text-xs text-[#6b66ff] mt-2">
+                                        class="text-xs text-[var(--primary-color)] mt-2">
                                         Uploading image...
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Service Video (Optional)</label>
                             <div
-                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[#6b66ff] transition-all">
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[var(--primary-color)] transition-all">
                                 <div class="space-y-1 text-center">
                                     <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -172,7 +172,7 @@
                                     </svg>
                                     <div class="flex text-sm text-gray-600">
                                         <label
-                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[#6b66ff] hover:text-[#5a56e6] focus-within:outline-none">
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[var(--primary-color)] hover:text-[var(--secondary-color)] focus-within:outline-none">
                                             <span>Upload a video</span>
                                             <input type="file" wire:model="{{ $editingId ? 'editVideo' : 'video' }}"
                                                 class="sr-only"
@@ -181,7 +181,7 @@
                                     </div>
                                     <p class="text-xs text-gray-500">MP4, MOV, AVI, WEBM up to 50MB</p>
                                     <div wire:loading wire:target="{{ $editingId ? 'editVideo' : 'video' }}"
-                                        class="text-xs text-[#6b66ff] mt-2 flex items-center justify-center gap-2">
+                                        class="text-xs text-[var(--primary-color)] mt-2 flex items-center justify-center gap-2">
                                         <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 24 24">
                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -229,14 +229,14 @@
                         <!-- Active Toggle -->
                         <div class="flex items-center">
                             <input type="checkbox" wire:model="{{ $editingId ? 'editIsActive' : 'is_active' }}"
-                                class="h-4 w-4 text-[#6b66ff] focus:ring-[#6b66ff] border-gray-300 rounded transition-all">
+                                class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded transition-all">
                             <label class="ml-2 block text-sm text-gray-900 font-medium">Is Active</label>
                         </div>
 
                         <!-- Buttons -->
                         <div class="flex gap-3">
                             <button type="submit"
-                                class="flex-1 bg-[#6b66ff] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#5a56e6] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="flex-1 bg-[var(--primary-color)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--secondary-color)] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 wire:loading.attr="disabled"
                                 wire:target="{{ $editingId ? 'update' : 'store' }}, {{ $editingId ? 'editImage,editVideo' : 'image,video' }}">
                                 <span wire:loading.remove wire:target="{{ $editingId ? 'update' : 'store' }}">
@@ -323,7 +323,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                                     <button wire:click="edit({{ $service->id }})"
-                                        class="text-[#6b66ff] hover:text-[#5a56e6] font-semibold">Edit</button>
+                                        class="text-[var(--primary-color)] hover:text-[var(--secondary-color)] font-semibold">Edit</button>
                                     <button wire:click="delete({{ $service->id }})"
                                         wire:confirm="Are you sure you want to delete this service?"
                                         class="text-red-500 hover:text-red-700 font-semibold">Delete</button>

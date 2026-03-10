@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-[#fdfcfb] font-sans pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+<div class="min-h-screen bg-bg-main font-sans pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
     <div class="max-w-xl w-full">
 
         {{-- Success Card --}}
@@ -7,11 +7,11 @@
             {{-- Header --}}
             <div class="bg-[#fcfcff] border-b border-[#f3f0ed] p-10 flex flex-col items-center text-center relative overflow-hidden">
                 <!-- Decorative background ring -->
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#6b66ff]/5 rounded-full blur-2xl pointer-events-none"></div>
-                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#6b66ff]/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
 
-                <div class="w-20 h-20 bg-[#6b66ff]/10 rounded-full flex items-center justify-center mb-6 relative z-10 shadow-inner">
-                    <svg class="w-10 h-10 text-[#6b66ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 relative z-10 shadow-inner">
+                    <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
@@ -38,7 +38,7 @@
                     <div>
                         <span class="block text-[10px] uppercase tracking-[0.12em] text-[#9c9791] font-semibold mb-1">Service Requested</span>
                         <div class="text-[1.05rem] font-medium text-[#1a1714] flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-[#6b66ff]"></span>
+                            <span class="w-2 h-2 rounded-full bg-primary"></span>
                             {{ $reservation->service->title ?? 'N/A' }}
                         </div>
                     </div>
@@ -61,7 +61,7 @@
 
             {{-- Footer Action --}}
             <div class="bg-[#faf9f8] p-8 border-t border-[#f3f0ed] flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ url('/') }}" wire:navigate class="flex-1 inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-white border border-[#e2ddd8] text-[#4a4540] font-medium text-[0.95rem] rounded-xl hover:bg-[#f8f6f3] hover:text-[#1a1714] hover:border-[#1a1714]/20 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6b66ff]/50 shadow-sm">
+                <a href="{{ url('/') }}" wire:navigate class="flex-1 inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-white border border-[#e2ddd8] text-[#4a4540] font-medium text-[0.95rem] rounded-xl hover:bg-[#f8f6f3] hover:text-[#1a1714] hover:border-[#1a1714]/20 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>

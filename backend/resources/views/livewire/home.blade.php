@@ -21,7 +21,7 @@
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <a href="{{ $home->button_url ?? route('register') }}"
-                            class="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
+                            class="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-primary hover:bg-secondary rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105">
                             {{ $home->button_text ?? 'Get started free' }}
                             <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
 
                                 <div class="pt-6 space-y-3">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 bg-[#6b66ff] rounded-xl flex items-center justify-center">
+                                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

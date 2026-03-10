@@ -46,39 +46,39 @@
                     </div>
 
                     @auth
-                        <!-- User Dropdown -->
-                        <div class="relative" x-data="{ open: false }">
-                            <button @click="open = !open"
-                                class="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <span
-                                        class="text-xs font-semibold text-gray-600">{{ substr(auth()->user()->name, 0, 1) }}</span>
-                                </div>
-                            </button>
-                            <div x-show="open" @click.away="open = false" x-cloak
-                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-200">
-                                <a href="{{ route('admin.dashboard') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
-                                <hr class="my-1">
-                                <form method="POST" action="{{ route('admin.logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                        Logout
-                                    </button>
-                                </form>
+                    <!-- User Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span
+                                    class="text-xs font-semibold text-gray-600">{{ substr(auth()->user()->name, 0, 1) }}</span>
                             </div>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-cloak
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-200">
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
+                            <hr class="my-1">
+                            <form method="POST" action="{{ route('admin.logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
+                    </div>
                     @else
-                        <!-- CTA Button -->
-                        <a href="{{ route('login') }}"
-                            class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                            Sign in
-                        </a>
-                        <a href="{{ route('register') }}"
-                            class="px-5 py-2 text-sm font-medium text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-md transition-colors">
-                            Get started
-                        </a>
+                    <!-- CTA Button -->
+                    <a href="{{ route('login') }}"
+                        class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
+                        Sign in
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="px-5 py-2 text-sm font-medium text-white bg-primary hover:bg-secondary rounded-md transition-colors">
+                        Get started
+                    </a>
                     @endauth
                 </div>
 
@@ -106,39 +106,39 @@
                 <a href="#" class="block text-base font-medium text-gray-700 hover:text-gray-900">Career</a>
 
                 @auth
-                    <hr class="my-3">
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-gray-900">Dashboard</a>
+                <hr class="my-3">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="block text-base font-medium text-gray-700 hover:text-gray-900">Dashboard</a>
 
-                    <form method="POST" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <button type="submit"
-                            class="block w-full text-left text-base font-medium text-gray-700 hover:text-gray-900">
-                            Logout
-                        </button>
-                    </form>
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="block w-full text-left text-base font-medium text-gray-700 hover:text-gray-900">
+                        Logout
+                    </button>
+                </form>
                 @else
-                    <hr class="my-3">
-                    <a href="{{ route('login') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-gray-900">Sign
-                        in</a>
-                    <a href="{{ route('register') }}"
-                        class="block w-full text-center px-5 py-2 text-base font-medium text-white bg-[#6b66ff] hover:bg-[#5a56e6] rounded-md transition-colors">
-                        Get started
-                    </a>
+                <hr class="my-3">
+                <a href="{{ route('login') }}"
+                    class="block text-base font-medium text-gray-700 hover:text-gray-900">Sign
+                    in</a>
+                <a href="{{ route('register') }}"
+                    class="block w-full text-center px-5 py-2 text-base font-medium text-white bg-primary hover:bg-secondary rounded-md transition-colors">
+                    Get started
+                </a>
                 @endauth
             </div>
         </div>
     </nav>
 
     @push('scripts')
-        <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('navbar', () => ({
-                    mobileMenuOpen: false
-                }))
-            })
-        </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('navbar', () => ({
+                mobileMenuOpen: false
+            }))
+        })
+    </script>
     @endpush
 
     <style>

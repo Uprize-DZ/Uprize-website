@@ -37,7 +37,7 @@
         }
 
         .back:hover {
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         .back svg {
@@ -53,7 +53,7 @@
             font-size: 10px;
             letter-spacing: .16em;
             text-transform: uppercase;
-            color: #6b66ff;
+            color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 7px;
@@ -64,7 +64,7 @@
             display: inline-block;
             width: 18px;
             height: 1px;
-            background: #6b66ff;
+            background: var(--primary-color);
             opacity: .4;
         }
 
@@ -82,7 +82,7 @@
             font-family: 'Fraunces', serif;
             font-style: italic;
             font-weight: 400;
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         .sp-lead {
@@ -145,7 +145,7 @@
         .live-dot {
             width: 5px;
             height: 5px;
-            background: #6b66ff;
+            background: var(--primary-color);
             border-radius: 50%;
             animation: blink 2s ease-in-out infinite;
         }
@@ -205,7 +205,7 @@
             position: absolute;
             inset: 0;
             opacity: .07;
-            background-image: repeating-linear-gradient(45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 7px);
+            background-image: repeating-linear-gradient(45deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 7px);
         }
 
         .card-icon img {
@@ -220,7 +220,7 @@
             font-size: 10px;
             letter-spacing: .13em;
             text-transform: uppercase;
-            color: #6b66ff;
+            color: var(--primary-color);
             margin-bottom: 4px;
         }
 
@@ -239,7 +239,7 @@
         .rule {
             width: 26px;
             height: 1.5px;
-            background: #6b66ff;
+            background: var(--primary-color);
             opacity: .25;
             margin-bottom: 12px;
         }
@@ -269,13 +269,13 @@
             width: 20px;
             height: 20px;
             border-radius: 6px;
-            background: rgba(107, 102, 255, .08);
-            border: 1px solid rgba(107, 102, 255, .15);
+            background: rgba(var(--primary-rgb), .08);
+            border: 1px solid rgba(var(--primary-rgb), .15);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            color: #6b66ff;
+            color: var(--primary-color);
         }
 
         .feat-item span {
@@ -296,7 +296,7 @@
             position: absolute;
             inset: 0;
             opacity: .06;
-            background-image: repeating-linear-gradient(-45deg, #6b66ff 0, #6b66ff 1px, transparent 0, transparent 9px);
+            background-image: repeating-linear-gradient(-45deg, var(--primary-color) 0, var(--primary-color) 1px, transparent 0, transparent 9px);
         }
 
         .res-eye {
@@ -366,8 +366,8 @@
         }
 
         .fi:focus {
-            border-color: rgba(107, 102, 255, .4);
-            box-shadow: 0 0 0 3px rgba(107, 102, 255, .07);
+            border-color: rgba(var(--primary-rgb), .4);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), .07);
             background: #fdfcfb;
         }
 
@@ -422,7 +422,7 @@
             justify-content: center;
             gap: 9px;
             padding: 13px;
-            background: #6b66ff;
+            background: var(--primary-color);
             border: none;
             border-radius: 11px;
             font-family: 'DM Sans', sans-serif;
@@ -437,7 +437,7 @@
         .btn-submit:hover {
             background: #5a56e8;
             transform: translateY(-2px);
-            box-shadow: 0 10px 26px rgba(107, 102, 255, .28);
+            box-shadow: 0 10px 26px rgba(var(--primary-rgb), .28);
         }
 
         .btn-submit svg {
@@ -460,7 +460,7 @@
         }
 
         .trust svg {
-            color: #6b66ff;
+            color: var(--primary-color);
             opacity: .5;
         }
 
@@ -472,7 +472,7 @@
         }
 
         .res-ok svg.ring {
-            color: #6b66ff;
+            color: var(--primary-color);
             margin-bottom: 14px;
         }
 

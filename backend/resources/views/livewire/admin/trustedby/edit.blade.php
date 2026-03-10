@@ -7,7 +7,7 @@
                 <p class="mt-2 text-sm text-gray-600">Manage the companies and partners displayed on the homepage.</p>
             </div>
             <a href="{{ route('admin.dashboard') }}"
-                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6b66ff]">
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
                 Back to Dashboard
             </a>
         </div>
@@ -24,7 +24,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
                             <input type="text" wire:model="{{ $editingId ? 'editName' : 'name' }}"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="Google, Apple, etc.">
                             @error($editingId ? 'editName' : 'name') <span
                             class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -34,7 +34,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
                             <input type="text" wire:model="{{ $editingId ? 'editUrl' : 'url' }}"
-                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[#6b66ff] focus:ring-[#6b66ff] transition-all"
+                                class="w-full px-4 py-2 rounded-xl border-gray-200 focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-all"
                                 placeholder="https://example.com">
                             @error($editingId ? 'editUrl' : 'url') <span
                             class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
@@ -44,7 +44,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Logo (SVG/PNG)</label>
                             <div
-                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[#6b66ff] transition-all">
+                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-[var(--primary-color)] transition-all">
                                 <div class="space-y-1 text-center">
                                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
                                         viewBox="0 0 48 48">
@@ -54,7 +54,7 @@
                                     </svg>
                                     <div class="flex text-sm text-gray-600">
                                         <label
-                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[#6b66ff] hover:text-[#5a56e6] focus-within:outline-none">
+                                            class="relative cursor-pointer bg-white rounded-md font-medium text-[var(--primary-color)] hover:text-[var(--secondary-color)] focus-within:outline-none">
                                             <span>Upload a file</span>
                                             <input type="file" wire:model="{{ $editingId ? 'editImage' : 'image' }}"
                                                 class="sr-only">
@@ -92,14 +92,14 @@
                         <!-- Active Toggle -->
                         <div class="flex items-center">
                             <input type="checkbox" wire:model="{{ $editingId ? 'editIsActive' : 'is_active' }}"
-                                class="h-4 w-4 text-[#6b66ff] focus:ring-[#6b66ff] border-gray-300 rounded transition-all">
+                                class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded transition-all">
                             <label class="ml-2 block text-sm text-gray-900 font-medium">Is Active</label>
                         </div>
 
                         <!-- Buttons -->
                         <div class="flex gap-3">
                             <button type="submit"
-                                class="flex-1 bg-[#6b66ff] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#5a56e6] transition-all flex items-center justify-center gap-2">
+                                class="flex-1 bg-[var(--primary-color)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--secondary-color)] transition-all flex items-center justify-center gap-2">
                                 <span wire:loading.remove>{{ $editingId ? 'Update Company' : 'Add Company' }}</span>
                                 <span wire:loading
                                     class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
@@ -153,7 +153,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <a href="{{ $company->url }}" target="_blank"
-                                            class="text-[#6b66ff] hover:underline">{{ Str::limit($company->url, 20) }}</a>
+                                            class="text-[var(--primary-color)] hover:underline">{{ Str::limit($company->url, 20) }}</a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <button wire:click="toggleActive({{ $company->id }})"
@@ -163,7 +163,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                                         <button wire:click="edit({{ $company->id }})"
-                                            class="text-[#6b66ff] hover:text-[#5a56e6] font-semibold">Edit</button>
+                                            class="text-[var(--primary-color)] hover:text-[var(--secondary-color)] font-semibold">Edit</button>
                                         <button wire:click="delete({{ $company->id }})"
                                             wire:confirm="Are you sure you want to delete this company?"
                                             class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
