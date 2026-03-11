@@ -62,14 +62,7 @@ $entity = Entity::find(1);
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 md:gap-8">
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-900 tracking-wider">Resources</h3>
-                        <ul role="list" class="mt-4 space-y-3">
-                            <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)] rounded-md">Documentation</a></li>
-                            <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)] rounded-md">Help Center</a></li>
-                            <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)] rounded-md">Blog</a></li>
-                        </ul>
-                    </div>
+
                     <div class="mt-10 md:mt-0">
                         <h3 class="text-sm font-semibold text-gray-900 tracking-wider">Legal</h3>
                         <ul role="list" class="mt-4 space-y-3">
