@@ -20,6 +20,8 @@
 │   │   │   │   └── Edit.php
 │   │   │   ├── HomeAdminController
 │   │   │   │   └── Edit.php
+│   │   │   ├── PolicyAdminController
+│   │   │   │   └── Edit.php
 │   │   │   ├── ReservationsController
 │   │   │   │   ├── Index.php
 │   │   │   │   └── Show.php
@@ -30,14 +32,18 @@
 │   │   │       └── Edit.php
 │   │   ├── Forms
 │   │   │   ├── HomeForm.php
-│   │   │   └── LoginForm.php
+│   │   │   ├── LoginForm.php
+│   │   │   └── ReservationForm.php
 │   │   └── Layout
+│   │       ├── PolicyPageComponent.php
+│   │       ├── ReservationSuccess.php
 │   │       ├── ServiceDetails.php
 │   │       ├── Services.php
 │   │       └── Trustedby.php
 │   ├── Models
 │   │   ├── Entity.php
 │   │   ├── Home.php
+│   │   ├── PolicyPage.php
 │   │   ├── Reservation.php
 │   │   ├── Services.php
 │   │   ├── TrustedBy.php
@@ -45,6 +51,8 @@
 │   ├── Providers
 │   │   ├── AppServiceProvider.php
 │   │   └── VoltServiceProvider.php
+│   ├── Services
+│   │   └── ReservationService.php
 │   └── View
 │       └── Components
 │           ├── AppLayout.php
@@ -86,7 +94,9 @@
 │   │   ├── 2026_02_08_000000_create_services_table.php
 │   │   ├── 2026_02_13_225352_add_video_public_id_to_services_table.php
 │   │   ├── 2026_02_21_150828_create_entity_table.php
-│   │   └── 2026_03_01_000000_reservations_table.php
+│   │   ├── 2026_03_01_000000_reservations_table.php
+│   │   ├── 2026_03_03_195330_add_features_to_services_table.php
+│   │   └── 2026_03_05_000000_create_policy_pages_table.php
 │   └── seeders
 │       ├── AdminSeeder.php
 │       ├── DatabaseSeeder.php
@@ -148,6 +158,8 @@
 │           │   ├── footer
 │           │   │   └── edit.blade.php
 │           │   ├── navbar.blade.php
+│           │   ├── policy
+│           │   │   └── edit.blade.php
 │           │   ├── Reservations
 │           │   │   ├── index.blade.php
 │           │   │   └── show.blade.php
@@ -161,6 +173,8 @@
 │           │   ├── background.blade.php
 │           │   ├── footer.blade.php
 │           │   ├── navigation.blade.php
+│           │   ├── policy-page.blade.php
+│           │   ├── reservation-success.blade.php
 │           │   ├── servicedetails
 │           │   │   └── show.blade.php
 │           │   ├── services.blade.php
@@ -201,4 +215,4 @@
 │       └── ExampleTest.php
 └── vite.config.js
 
-57 directories, 145 files
+60 directories, 156 files

@@ -19,6 +19,15 @@ export default {
                 secondary: 'var(--secondary-color)',
                 'bg-main': 'var(--bg-color)',
             },
+            animation: {
+                marquee: 'marquee 30s linear infinite',
+            },
+            keyframes: {
+                marquee: {
+                    '0%': { transform: 'translateX(200%)' },
+                    '100%': { transform: 'translateX(-100%)' },
+                },
+            },
         },
     },
 
