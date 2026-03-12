@@ -20,6 +20,14 @@ return new class extends Migration
             $table->string('email', 255)->nullable();
             $table->string('phone', 21)->nullable();
             $table->string('address', 512)->nullable();
+            //scocial media links
+            $table->string('facebook_url')->nullable();
+            $table->string('instagram_url')->nullable();
+            $table->string('twitter_url')->nullable();
+            $table->string('youtube_url')->nullable();
+            $table->string('linkedin_url')->nullable();
+            $table->string('tiktok_url')->nullable();
+            $table->string('whatsapp_number')->nullable();
             $table->timestamps();
         });
     }

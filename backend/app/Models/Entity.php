@@ -15,5 +15,12 @@ class Entity extends Model
         'email',
         'phone',
         'address',
+        'facebook_url',
+        'instagram_url',
+        'twitter_url',
+        'youtube_url',
+        'linkedin_url',
+        'tiktok_url',
+        'whatsapp_number',
     ];
 }

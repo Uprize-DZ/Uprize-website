@@ -13,10 +13,10 @@
 
                 <!-- Primary Nav (Center) -->
                 <div class="hidden md:flex items-center justify-center flex-1 ms-8 space-x-8 rtl:space-x-reverse">
-                    <a href="{{ route('home') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Services</a>
+                    <a href="{{ route('home') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                     <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">How it works</a>
-                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Creators</a>
-                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About us</a>
+                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
                 </div>
 
                 <!-- Actions (End) -->
