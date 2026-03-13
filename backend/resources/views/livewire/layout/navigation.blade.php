@@ -13,9 +13,8 @@
 
                 <!-- Primary Nav (Center) -->
                 <div class="hidden md:flex items-center justify-center flex-1 ms-8 space-x-8 rtl:space-x-reverse">
-                    <a href="{{ route('home') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">How it works</a>
-                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">About us</a>
+                    <a href="{{ route('home') }}" class="text-sm font-medium {{ request()->routeIs('home') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-gray-900' }} transition-colors">Home</a>
+                    <a href="{{ route('about.us') }}" class="text-sm font-medium {{ request()->routeIs('about.us') ? 'text-primary font-semibold' : 'text-gray-600 hover:text-gray-900' }} transition-colors">About Us</a>
                     <a href="#" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
                 </div>
 
@@ -86,10 +85,9 @@
         <!-- Mobile Menu -->
         <div x-show="mobileMenuOpen" x-collapse x-cloak class="md:hidden border-t border-gray-200 bg-white">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Services</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">How it works</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Creators</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Pricing</a>
+                <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('home') ? 'text-primary bg-primary/5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">Home</a>
+                <a href="{{ route('about.us') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->routeIs('about.us') ? 'text-primary bg-primary/5' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">About Us</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900">Contact</a>
             </div>
 
             <div class="pt-4 pb-3 border-t border-gray-200">
