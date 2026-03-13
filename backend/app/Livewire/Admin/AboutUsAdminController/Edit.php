@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use App\Models\AboutUs;
 use App\Models\HowWeWork;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 #[Layout('components.layouts.admin')]
 class Edit extends Component
@@ -25,6 +26,31 @@ class Edit extends Component
     #[Validate('nullable|image|max:5120')]
     public $newHeroImage;
     public $existingHeroImage;
+
+    // Premium Media & Storytelling Fields
+    #[Validate('required|in:image,video')]
+    public $media_type = 'image';
+
+    #[Validate('nullable|string|max:2048')]
+    public $media_url;
+
+    #[Validate('nullable|file|mimes:mp4,mov,avi,webm|max:51200')]
+    public $newMediaVideo;
+
+    #[Validate('nullable|string|max:255')]
+    public $media_public_id;
+
+    #[Validate('nullable|string|max:255')]
+    public $label;
+
+    #[Validate('nullable|string|max:255')]
+    public $bullet1;
+
+    #[Validate('nullable|string|max:255')]
+    public $bullet2;
+
+    #[Validate('nullable|string|max:255')]
+    public $bullet3;
 
     // Mission / Vision / Values
     #[Validate('nullable|string|max:255')]
@@ -83,6 +109,14 @@ class Edit extends Component
         $this->hero_title = $about->hero_title ?? '';
         $this->hero_subtitle = $about->hero_subtitle ?? '';
         $this->existingHeroImage = $about->hero_image;
+        
+        $this->media_type = $about->media_type ?? 'image';
+        $this->media_url = $about->media_url ?? '';
+        $this->media_public_id = $about->media_public_id ?? '';
+        $this->label = $about->label ?? '';
+        $this->bullet1 = $about->bullet1 ?? '';
+        $this->bullet2 = $about->bullet2 ?? '';
+        $this->bullet3 = $about->bullet3 ?? '';
         $this->mission_title = $about->mission_title ?? '';
         $this->mission_description = $about->mission_description ?? '';
         $this->vision_title = $about->vision_title ?? '';
@@ -134,6 +168,13 @@ class Edit extends Component
         $about = AboutUs::firstOrNew();
         $about->hero_title = $this->hero_title;
         $about->hero_subtitle = $this->hero_subtitle;
+        $about->media_type = $this->media_type;
+        $about->media_url = $this->media_url;
+        $about->media_public_id = $this->media_public_id;
+        $about->label = $this->label;
+        $about->bullet1 = $this->bullet1;
+        $about->bullet2 = $this->bullet2;
+        $about->bullet3 = $this->bullet3;
         $about->mission_title = $this->mission_title;
         $about->mission_description = $this->mission_description;
         $about->vision_title = $this->vision_title;
@@ -156,6 +197,34 @@ class Edit extends Component
                 Storage::disk('public')->delete($about->hero_image);
             }
             $about->hero_image = $this->newHeroImage->store('about', 'public');
+        }
+
+        if ($this->media_type === 'video' && $this->newMediaVideo) {
+            try {
+                // Delete old video from Cloudinary if it exists
+                if ($about->media_public_id) {
+                    Cloudinary::uploadApi()->destroy($about->media_public_id, ['resource_type' => 'video']);
+                }
+
+                // Upload new video
+                $uploadedVideo = Cloudinary::uploadApi()->upload(
+                    $this->newMediaVideo->getRealPath(),
+                    [
+                        'folder' => 'about/videos',
+                        'resource_type' => 'video',
+                    ]
+                );
+
+                $about->media_url = $uploadedVideo['secure_url'];
+                $about->media_public_id = $uploadedVideo['public_id'];
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Video upload failed: ' . $e->getMessage(), ['exception' => $e]);
+                $this->dispatch('alert', type: 'error', message: 'Video upload failed: ' . $e->getMessage());
+                return;
+            }
+        } elseif ($this->media_type === 'image') {
+            // Keep existing media_url if it's set manually as a string (or we could add image upload for media too)
+            // But right now the user can type a url in media_url or the view falls back to hero_image
         }
 
         $about->save();

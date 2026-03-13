@@ -38,7 +38,7 @@
 
                     {{-- Hero Image --}}
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Hero Image</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hero Image (Fallback / Legacy)</label>
                         <input type="file" wire:model="newHeroImage" accept="image/*"
                             class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
                         @error('newHeroImage')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
@@ -55,6 +55,64 @@
                             </div>
                         @endif
                     </div>
+
+                    <div class="border-t border-gray-100 my-8"></div>
+
+                    <h3 class="text-md font-bold text-gray-900 mb-4 flex items-center gap-2">SaaS Storytelling Media & Content</h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        {{-- Label --}}
+                        <div class="col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Section Label <span class="text-xs text-gray-400 font-normal">(e.g. "Our Story")</span></label>
+                            <input type="text" wire:model="label"
+                                class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary">
+                        </div>
+
+                        {{-- Media Type --}}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Media Type</label>
+                            <select wire:model.live="media_type" 
+                                class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary">
+                                <option value="image">Cloudinary Image</option>
+                                <option value="video">Cloudinary Video</option>
+                            </select>
+                        </div>
+
+                        {{-- Media URL / Upload --}}
+                        <div x-data="{ type: @entangle('media_type') }">
+                            <label class="block text-sm font-medium text-gray-700 mb-1" x-text="type === 'video' ? 'Upload Cloudinary Video' : 'Cloudinary Image URL'"></label>
+                            
+                            <!-- Image URL Input -->
+                            <div x-show="type === 'image'">
+                                <input type="url" wire:model="media_url" placeholder="https://res.cloudinary.com/..."
+                                    class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary text-sm">
+                            </div>
+
+                            <!-- Video Upload Input -->
+                            <div x-show="type === 'video'" x-cloak>
+                                <input type="file" wire:model="newMediaVideo" accept="video/*"
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
+                                @error('newMediaVideo')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                                <div wire:loading wire:target="newMediaVideo" class="mt-2 text-sm text-primary">Uploading video...</div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    {{-- Bullets --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Supporting Points <span class="text-xs text-gray-400 font-normal">(Optional bullet points)</span></label>
+                        <div class="space-y-3">
+                            <input type="text" wire:model="bullet1" placeholder="Bullet point 1 (e.g. Expert creative teams)"
+                                class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary text-sm">
+                            <input type="text" wire:model="bullet2" placeholder="Bullet point 2 (e.g. Fast project delivery)"
+                                class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary text-sm">
+                            <input type="text" wire:model="bullet3" placeholder="Bullet point 3 (e.g. Scalable digital services)"
+                                class="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary text-sm">
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-100 my-8"></div>
 
                     {{-- CTA --}}
                     <div class="grid grid-cols-2 gap-4">

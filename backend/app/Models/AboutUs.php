@@ -28,7 +28,12 @@ class AboutUs extends Model
         'stat3_label',
         'stat4_number',
         'stat4_label',
-        'cta_text',
-        'cta_url',
+        'media_type',
+        'media_url',
+        'media_public_id',
+        'label',
+        'bullet1',
+        'bullet2',
+        'bullet3',
     ];
 }

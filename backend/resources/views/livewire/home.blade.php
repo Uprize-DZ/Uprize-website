@@ -103,6 +103,10 @@
         <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-20 animate-float"
             style="animation-delay: 1s;"></div>
     </section>
+
+    <!-- Premium About Section Block -->
+    <livewire:layout.about-section />
+
     <!-- trusted by section-->
     <livewire:layout.trustedby />
 
