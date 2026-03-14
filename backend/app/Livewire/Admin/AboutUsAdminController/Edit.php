@@ -71,6 +71,24 @@ class Edit extends Component
     #[Validate('nullable|string')]
     public $values_description;
 
+    #[Validate('boolean')]
+    public $mission_is_active = true;
+    #[Validate('nullable|image|max:5120')]
+    public $newMissionImage;
+    public $existingMissionImage;
+
+    #[Validate('boolean')]
+    public $vision_is_active = true;
+    #[Validate('nullable|image|max:5120')]
+    public $newVisionImage;
+    public $existingVisionImage;
+
+    #[Validate('boolean')]
+    public $values_is_active = true;
+    #[Validate('nullable|image|max:5120')]
+    public $newValuesImage;
+    public $existingValuesImage;
+
     // Stats
     #[Validate('nullable|string|max:50')]
     public $stat1_number;
@@ -109,7 +127,7 @@ class Edit extends Component
         $this->hero_title = $about->hero_title ?? '';
         $this->hero_subtitle = $about->hero_subtitle ?? '';
         $this->existingHeroImage = $about->hero_image;
-        
+
         $this->media_type = $about->media_type ?? 'image';
         $this->media_url = $about->media_url ?? '';
         $this->media_public_id = $about->media_public_id ?? '';
@@ -123,6 +141,13 @@ class Edit extends Component
         $this->vision_description = $about->vision_description ?? '';
         $this->values_title = $about->values_title ?? '';
         $this->values_description = $about->values_description ?? '';
+
+        $this->mission_is_active = $about->mission_is_active ?? false;
+        $this->existingMissionImage = $about->mission_image;
+        $this->vision_is_active = $about->vision_is_active ?? false;
+        $this->existingVisionImage = $about->vision_image;
+        $this->values_is_active = $about->values_is_active ?? false;
+        $this->existingValuesImage = $about->values_image;
         $this->stat1_number = $about->stat1_number ?? '';
         $this->stat1_label = $about->stat1_label ?? '';
         $this->stat2_number = $about->stat2_number ?? '';
@@ -181,6 +206,10 @@ class Edit extends Component
         $about->vision_description = $this->vision_description;
         $about->values_title = $this->values_title;
         $about->values_description = $this->values_description;
+
+        $about->mission_is_active = $this->mission_is_active;
+        $about->vision_is_active = $this->vision_is_active;
+        $about->values_is_active = $this->values_is_active;
         $about->stat1_number = $this->stat1_number;
         $about->stat1_label = $this->stat1_label;
         $about->stat2_number = $this->stat2_number;
@@ -197,6 +226,19 @@ class Edit extends Component
                 Storage::disk('public')->delete($about->hero_image);
             }
             $about->hero_image = $this->newHeroImage->store('about', 'public');
+        }
+
+        if ($this->newMissionImage) {
+            if ($about->mission_image) Storage::disk('public')->delete($about->mission_image);
+            $about->mission_image = $this->newMissionImage->store('about_visions', 'public');
+        }
+        if ($this->newVisionImage) {
+            if ($about->vision_image) Storage::disk('public')->delete($about->vision_image);
+            $about->vision_image = $this->newVisionImage->store('about_visions', 'public');
+        }
+        if ($this->newValuesImage) {
+            if ($about->values_image) Storage::disk('public')->delete($about->values_image);
+            $about->values_image = $this->newValuesImage->store('about_visions', 'public');
         }
 
         if ($this->media_type === 'video' && $this->newMediaVideo) {
@@ -229,6 +271,9 @@ class Edit extends Component
 
         $about->save();
         $this->existingHeroImage = $about->hero_image;
+        $this->existingMissionImage = $about->mission_image;
+        $this->existingVisionImage = $about->vision_image;
+        $this->existingValuesImage = $about->values_image;
         $this->dispatch('alert', type: 'success', message: 'About Us page updated successfully');
     }
 

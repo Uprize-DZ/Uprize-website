@@ -88,23 +88,27 @@
     ])->filter(fn($s) => !empty($s['number']));
 
     $defaultStats = [
-    ['number' => '5+', 'label' => 'Years of Experience'],
-    ['number' => '200+', 'label' => 'Projects Delivered'],
-    ['number' => '50+', 'label' => 'Happy Clients'],
-    ['number' => '15+', 'label' => 'Team Members'],
+    ['number' => '', 'label' => ''],
+    ['number' => '', 'label' => ''],
+    ['number' => '', 'label' => ''],
+    ['number' => '', 'label' => ''],
     ];
     $displayStats = $stats->count() ? $stats : collect($defaultStats);
     @endphp
 
-    <section class="py-16 bg-white border-y border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section class="py-24 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <!-- Floating elements to match home -->
+        <div class="absolute top-0 right-1/4 w-72 h-72 bg-[#e8e7ff] rounded-full filter blur-3xl opacity-30 animate-pulse" style="animation-duration: 4s;"></div>
+        <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-purple-50 rounded-full filter blur-3xl opacity-30 animate-pulse" style="animation-duration: 5s; animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($displayStats as $stat)
-                <div class="text-center group">
-                    <div class="text-4xl lg:text-5xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/40 p-8 border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 mb-4 drop-shadow-sm">
                         {{ $stat['number'] }}
                     </div>
-                    <div class="mt-2 text-sm font-medium text-gray-500 uppercase tracking-wide">
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-widest">
                         {{ $stat['label'] }}
                     </div>
                 </div>
@@ -123,45 +127,78 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 {{-- Mission --}}
-                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 bg-blue-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all">
-                        <svg class="w-7 h-7 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
+                @if($aboutUs->mission_is_active ?? true)
+                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        @if($aboutUs->mission_image)
+                        <div class="mb-6 w-16 h-16 rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-gray-50 flex items-center justify-center">
+                            <img src="{{ asset('storage/' . $aboutUs->mission_image) }}" alt="Mission" class="w-full h-full object-cover">
+                        </div>
+                        @else
+                        <div class="w-16 h-16 bg-blue-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+                            <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        @endif
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->mission_title ?? 'Our Mission' }}</h3>
+                        <p class="text-gray-500 leading-relaxed">{{ $aboutUs->mission_description ?? 'To empower businesses of all sizes through high-impact design, cutting-edge technology, and strategic digital solutions that drive real results.' }}</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->mission_title ?? 'Our Mission' }}</h3>
-                    <p class="text-gray-500 leading-relaxed">{{ $aboutUs->mission_description ?? 'To empower businesses of all sizes through high-impact design, cutting-edge technology, and strategic digital solutions that drive real results.' }}</p>
                 </div>
+                @endif
 
                 {{-- Vision --}}
-                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 bg-purple-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all">
-                        <svg class="w-7 h-7 text-purple-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
+                @if($aboutUs->vision_is_active ?? true)
+                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-purple-900/5 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-purple-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        @if($aboutUs->vision_image)
+                        <div class="mb-6 w-16 h-16 rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-gray-50 flex items-center justify-center">
+                            <img src="{{ asset('storage/' . $aboutUs->vision_image) }}" alt="Vision" class="w-full h-full object-cover">
+                        </div>
+                        @else
+                        <div class="w-16 h-16 bg-purple-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+                            <svg class="w-8 h-8 text-purple-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </div>
+                        @endif
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->vision_title ?? 'Our Vision' }}</h3>
+                        <p class="text-gray-500 leading-relaxed">{{ $aboutUs->vision_description ?? 'To be the leading creative agency that transforms ideas into impactful digital experiences, setting new standards for excellence in the industry.' }}</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->vision_title ?? 'Our Vision' }}</h3>
-                    <p class="text-gray-500 leading-relaxed">{{ $aboutUs->vision_description ?? 'To be the leading creative agency that transforms ideas into impactful digital experiences, setting new standards for excellence in the industry.' }}</p>
                 </div>
+                @endif
 
                 {{-- Values --}}
-                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1">
-                    <div class="w-14 h-14 bg-green-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all">
-                        <svg class="w-7 h-7 text-green-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
+                @if($aboutUs->values_is_active ?? true)
+                <div class="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-green-900/5 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        @if($aboutUs->values_image)
+                        <div class="mb-6 w-16 h-16 rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-gray-50 flex items-center justify-center">
+                            <img src="{{ asset('storage/' . $aboutUs->values_image) }}" alt="Values" class="w-full h-full object-cover">
+                        </div>
+                        @else
+                        <div class="w-16 h-16 bg-green-50 group-hover:bg-primary rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+                            <svg class="w-8 h-8 text-green-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        @endif
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->values_title ?? 'Our Values' }}</h3>
+                        <p class="text-gray-500 leading-relaxed">{{ $aboutUs->values_description ?? 'Integrity, innovation, and client-first thinking guide every decision we make. We believe in transparent communication and delivering excellence without compromise.' }}</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $aboutUs->values_title ?? 'Our Values' }}</h3>
-                    <p class="text-gray-500 leading-relaxed">{{ $aboutUs->values_description ?? 'Integrity, innovation, and client-first thinking guide every decision we make. We believe in transparent communication and delivering excellence without compromise.' }}</p>
                 </div>
+                @endif
             </div>
         </div>
     </section>
 
     {{-- ───────────────────────────── HOW WE WORK ───────────────────────────── --}}
     @if(isset($steps) && count($steps) > 0)
-    <section class="py-24 bg-white-50">
+    <section class="py-24 bg-slate-50 border-t border-gray-100">
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
@@ -173,19 +210,20 @@
 
             <div class="relative">
                 {{-- Connecting line --}}
-                <div class="hidden lg:block absolute top-10 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+                <div class="hidden lg:block absolute top-[2.5rem] left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-{{ min(count($steps), 4) }} gap-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-{{ min(count($steps), 4) }} gap-8 lg:gap-12 relative z-10 w-full pt-4">
                     @foreach($steps as $index => $step)
-                    <div class="relative group">
+                    <div class="relative group cursor-default hover:-translate-y-2 transition-transform duration-300">
                         {{-- Step number circle --}}
-                        <div class="relative z-10 w-20 h-20 bg-white border-2 border-primary/20 group-hover:border-primary group-hover:bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm transition-all duration-300">
-                            <span class="text-2xl font-bold text-primary group-hover:text-white transition-colors">
+                        <div class="relative z-20 w-16 h-16 bg-white group-hover:bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md group-hover:shadow-xl group-hover:shadow-primary/20 ring-1 ring-primary/10 group-hover:ring-primary transition-all duration-300 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent group-hover:opacity-0 transition-opacity"></div>
+                            <span class="relative text-2xl font-bold text-primary group-hover:text-white transition-colors duration-300">
                                 {{ $step['step_number'] ?? ($index + 1) }}
                             </span>
                         </div>
-                        <div class="text-center">
-                            <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $step['title'] }}</h3>
+                        <div class="text-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100 group-hover:shadow-xl group-hover:border-primary/10 transition-all duration-300 relative z-20 h-full">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors duration-300">{{ $step['title'] }}</h3>
                             <p class="text-gray-500 text-sm leading-relaxed">{{ $step['description'] }}</p>
                         </div>
                     </div>

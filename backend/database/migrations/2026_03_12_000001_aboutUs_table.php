@@ -32,7 +32,7 @@ return new class extends Migration {
             $table->string('stat3_label')->nullable();
             $table->string('stat4_number')->nullable();
             $table->string('stat4_label')->nullable();
-
+            $table->boolean('is_active')->default(true);
             // CTA
             $table->string('cta_text')->nullable();
             $table->string('cta_url')->nullable();

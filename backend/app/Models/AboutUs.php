@@ -10,6 +10,13 @@ class AboutUs extends Model
     protected $table = 'about_us';
     use HasFactory;
 
+    protected $casts = [
+        'is_active' => 'boolean',
+        'mission_is_active' => 'boolean',
+        'vision_is_active' => 'boolean',
+        'values_is_active' => 'boolean',
+    ];
+
     protected $fillable = [
         'hero_title',
         'hero_subtitle',
@@ -35,5 +42,12 @@ class AboutUs extends Model
         'bullet1',
         'bullet2',
         'bullet3',
+        'is_active',
+        'mission_is_active',
+        'mission_image',
+        'vision_is_active',
+        'vision_image',
+        'values_is_active',
+        'values_image',
     ];
 }

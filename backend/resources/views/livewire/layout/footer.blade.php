@@ -26,8 +26,8 @@ $entity = Entity::first();
 
                 {{-- Social --}}
                 <div style="display:flex; align-items:center; gap:14px;">
-                    @if($entity->facebook_url)
-                    <a href="{{ $entity->facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook"
+                    @if($entity?->facebook_url)
+                    <a href="{{ $entity?->facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook"
                         style="color:#9ca3af; text-decoration:none; display:flex; align-items:center; transition:color .15s;"
                         onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#9ca3af'">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
@@ -35,7 +35,7 @@ $entity = Entity::first();
                         </svg>
                     </a>
                     @endif
-                    @if($entity->instagram_url)
+                    @if($entity?->instagram_url)
                     <a href="{{ $entity->instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram"
                         style="color:#9ca3af; text-decoration:none; display:flex; align-items:center;"
                         onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#9ca3af'">
@@ -44,7 +44,7 @@ $entity = Entity::first();
                         </svg>
                     </a>
                     @endif
-                    @if($entity->linkedin_url)
+                    @if($entity?->linkedin_url)
                     <a href="{{ $entity->linkedin_url }}" target="_blank" rel="noopener" aria-label="LinkedIn"
                         style="color:#9ca3af; text-decoration:none; display:flex; align-items:center;"
                         onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#9ca3af'">
@@ -53,7 +53,7 @@ $entity = Entity::first();
                         </svg>
                     </a>
                     @endif
-                    @if($entity->twitter_url)
+                    @if($entity?->twitter_url)
                     <a href="{{ $entity->twitter_url }}" target="_blank" rel="noopener" aria-label="X / Twitter"
                         style="color:#9ca3af; text-decoration:none; display:flex; align-items:center;"
                         onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#9ca3af'">
@@ -62,7 +62,7 @@ $entity = Entity::first();
                         </svg>
                     </a>
                     @endif
-                    @if($entity->whatsapp_number)
+                    @if($entity?->whatsapp_number)
                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $entity->whatsapp_number) }}" target="_blank" rel="noopener" aria-label="WhatsApp"
                         style="color:#9ca3af; text-decoration:none; display:flex; align-items:center;"
                         onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#9ca3af'">
@@ -100,7 +100,7 @@ $entity = Entity::first();
             <div>
                 <p style="font-size:11px; font-weight:600; color:#111827; text-transform:uppercase; letter-spacing:0.1em; margin:0 0 18px; padding-bottom:12px; border-bottom:1px solid #f3f4f6;">Contact</p>
                 <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:13px;">
-                    @if($entity->address)
+                    @if($entity?->address)
                     <li style="display:flex; align-items:flex-start; gap:10px;">
                         <svg style="width:15px; height:15px; margin-top:2px; color:#6b66ff; flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -109,7 +109,7 @@ $entity = Entity::first();
                         <span style="font-size:13.5px; color:#6b7280; line-height:1.55;">{{ $entity->address }}</span>
                     </li>
                     @endif
-                    @if($entity->phone)
+                    @if($entity?->phone)
                     <li style="display:flex; align-items:center; gap:10px;">
                         <svg style="width:15px; height:15px; color:#6b66ff; flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -117,7 +117,7 @@ $entity = Entity::first();
                         <a href="tel:{{ $entity->phone }}" style="font-size:13.5px; color:#6b7280; text-decoration:none;" onmouseover="this.style.color='#6b66ff'" onmouseout="this.style.color='#6b7280'">{{ $entity->phone }}</a>
                     </li>
                     @endif
-                    @if($entity->email)
+                    @if($entity?->email)
                     <li style="display:flex; align-items:center; gap:10px;">
                         <svg style="width:15px; height:15px; color:#6b66ff; flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
