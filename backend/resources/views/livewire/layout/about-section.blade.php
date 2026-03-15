@@ -81,21 +81,14 @@
     {{-- ───────────────────────────── STATS ───────────────────────────── --}}
     @php
     $stats = collect([
-    ['number' => $aboutUs->stat1_number, 'label' => $aboutUs->stat1_label],
-    ['number' => $aboutUs->stat2_number, 'label' => $aboutUs->stat2_label],
-    ['number' => $aboutUs->stat3_number, 'label' => $aboutUs->stat3_label],
-    ['number' => $aboutUs->stat4_number, 'label' => $aboutUs->stat4_label],
-    ])->filter(fn($s) => !empty($s['number']));
-
-    $defaultStats = [
-    ['number' => '', 'label' => ''],
-    ['number' => '', 'label' => ''],
-    ['number' => '', 'label' => ''],
-    ['number' => '', 'label' => ''],
-    ];
-    $displayStats = $stats->count() ? $stats : collect($defaultStats);
+        ['number' => $aboutUs->stat1_number, 'label' => $aboutUs->stat1_label, 'active' => $aboutUs->stat1_is_active],
+        ['number' => $aboutUs->stat2_number, 'label' => $aboutUs->stat2_label, 'active' => $aboutUs->stat2_is_active],
+        ['number' => $aboutUs->stat3_number, 'label' => $aboutUs->stat3_label, 'active' => $aboutUs->stat3_is_active],
+        ['number' => $aboutUs->stat4_number, 'label' => $aboutUs->stat4_label, 'active' => $aboutUs->stat4_is_active],
+    ])->filter(fn($s) => $s['number'] !== null && $s['number'] !== '' && $s['active']);
     @endphp
 
+    @if($stats->count() > 0)
     <section class="py-24 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
         <!-- Floating elements to match home -->
         <div class="absolute top-0 right-1/4 w-72 h-72 bg-[#e8e7ff] rounded-full filter blur-3xl opacity-30 animate-pulse" style="animation-duration: 4s;"></div>
@@ -103,7 +96,7 @@
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($displayStats as $stat)
+                @foreach($stats as $stat)
                 <div class="bg-white rounded-3xl shadow-xl shadow-gray-200/40 p-8 border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
                     <div class="text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 mb-4 drop-shadow-sm">
                         {{ $stat['number'] }}
@@ -116,6 +109,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- ───────────────────────────── MISSION / VISION / VALUES ───────────────────────────── --}}
     <section class="py-24 bg-gradient-to-b from-white to-gray-50">

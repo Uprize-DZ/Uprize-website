@@ -94,21 +94,29 @@ class Edit extends Component
     public $stat1_number;
     #[Validate('nullable|string|max:100')]
     public $stat1_label;
+    #[Validate('boolean')]
+    public $stat1_is_active = false;
 
     #[Validate('nullable|string|max:50')]
     public $stat2_number;
     #[Validate('nullable|string|max:100')]
     public $stat2_label;
+    #[Validate('boolean')]
+    public $stat2_is_active = false;
 
     #[Validate('nullable|string|max:50')]
     public $stat3_number;
     #[Validate('nullable|string|max:100')]
     public $stat3_label;
+    #[Validate('boolean')]
+    public $stat3_is_active = false;
 
     #[Validate('nullable|string|max:50')]
     public $stat4_number;
     #[Validate('nullable|string|max:100')]
     public $stat4_label;
+    #[Validate('boolean')]
+    public $stat4_is_active = false;
 
     // CTA
     #[Validate('nullable|string|max:255')]
@@ -143,6 +151,10 @@ class Edit extends Component
         $this->values_description = $about->values_description ?? '';
 
         $this->mission_is_active = $about->mission_is_active ?? false;
+        $this->stat1_is_active = $about->stat1_is_active ?? false;
+        $this->stat2_is_active = $about->stat2_is_active ?? false;
+        $this->stat3_is_active = $about->stat3_is_active ?? false;
+        $this->stat4_is_active = $about->stat4_is_active ?? false;
         $this->existingMissionImage = $about->mission_image;
         $this->vision_is_active = $about->vision_is_active ?? false;
         $this->existingVisionImage = $about->vision_image;
@@ -218,6 +230,10 @@ class Edit extends Component
         $about->stat3_label = $this->stat3_label;
         $about->stat4_number = $this->stat4_number;
         $about->stat4_label = $this->stat4_label;
+        $about->stat1_is_active = $this->stat1_is_active;
+        $about->stat2_is_active = $this->stat2_is_active;
+        $about->stat3_is_active = $this->stat3_is_active;
+        $about->stat4_is_active = $this->stat4_is_active;
         $about->cta_text = $this->cta_text;
         $about->cta_url = $this->cta_url;
 

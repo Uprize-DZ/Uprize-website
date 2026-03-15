@@ -135,10 +135,14 @@
                     @foreach([1,2,3,4] as $i)
                     <div class="bg-gray-50 rounded-xl p-4 space-y-3">
                         <p class="text-xs font-semibold text-gray-500 uppercase">Stat {{ $i }}</p>
-                        <input type="text" wire:model="stat{{ $i }}_number" placeholder="e.g. 200+"
+                        <input type="text" wire:model.live="stat{{ $i }}_number" placeholder="e.g. 200+"
                             class="block w-full rounded-lg border-gray-200 text-sm focus:border-primary focus:ring-primary">
                         <input type="text" wire:model="stat{{ $i }}_label" placeholder="e.g. Projects Done"
                             class="block w-full rounded-lg border-gray-200 text-sm focus:border-primary focus:ring-primary">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" wire:model.live="stat{{ $i }}_is_active" class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                        </label>
                     </div>
                     @endforeach
                 </div>

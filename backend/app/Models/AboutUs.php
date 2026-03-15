@@ -15,6 +15,10 @@ class AboutUs extends Model
         'mission_is_active' => 'boolean',
         'vision_is_active' => 'boolean',
         'values_is_active' => 'boolean',
+        'stat1_is_active' => 'boolean',
+        'stat2_is_active' => 'boolean',
+        'stat3_is_active' => 'boolean',
+        'stat4_is_active' => 'boolean',
     ];
 
     protected $fillable = [
@@ -49,5 +53,9 @@ class AboutUs extends Model
         'vision_image',
         'values_is_active',
         'values_image',
+        'stat1_is_active',
+        'stat2_is_active',
+        'stat3_is_active',
+        'stat4_is_active',
     ];
 }
